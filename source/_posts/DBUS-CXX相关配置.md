@@ -10,7 +10,6 @@ excerpt: DBUS-CXX在ubuntu18.04的环境配置，包括cmake,libsigc++的配置
 ---
 # DBUS-CXX
 
----
 
 # 介绍
 
@@ -48,9 +47,7 @@ DBUS-CXX的中文资料较少，耐心看完官方文档
 3. `mkdir __install`
 4. 之后执行`./configure  --prefix=$PWD/__install`,如果是交叉编译，需要加上`--host=xxxx`
 5. `make && make install` 
-6. 可以看见在__install 下面生成了如下目录，对应着头文件，库文件
-
-<!-- ![Untitled](DBUS-CXX%20ea3c1120e10e4ed2bb59ae12c9b37443/Untitled.png) -->
+6. 可以看见在__install 下面生成了对应头文件，库文件
 
 ## dbus-cxx
 
@@ -59,11 +56,16 @@ DBUS-CXX的中文资料较少，耐心看完官方文档
 `export PKG_CONFIG_PATH=/home/flork/git/libsigc++-3.0.0/__install/lib/pkgconfig:$PKG_CONFIG_PATH`
 3. 按照这些步骤安装即可
 
-<!-- ![Untitled](DBUS-CXX%20ea3c1120e10e4ed2bb59ae12c9b37443/Untitled%201.png) -->
+```shell
+mkdir build
+cd build
+cmake .. 
+make 
+sudo make install
+```
 
-编译需要添加指令`pkg-config --cflags --libs dbus-cxx-2.0`
+编译需要添加指令`pkg-config --cflags --libs dbus-cxx-2.0`, 详见makefile
 
-<!-- ![Untitled](DBUS-CXX%20ea3c1120e10e4ed2bb59ae12c9b37443/Untitled%202.png) -->
 
 # 例程
 
@@ -169,4 +171,5 @@ clean:
 
 先运行 server ，再运行 client
 
-<!-- ![Untitled](DBUS-CXX%20ea3c1120e10e4ed2bb59ae12c9b37443/Untitled%203.png) -->
+> `./client`<br>
+>  `1.1 + 2.2 = 3.3`
