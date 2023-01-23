@@ -8,7 +8,7 @@ categories:
 - Linux
 excerpt: DBUS-CXX在ubuntu18.04的环境配置，包括cmake,libsigc++的配置
 ---
-# DBUS-CXX
+# DBUS-CXX 配置
 
 
 # 介绍
@@ -66,7 +66,7 @@ sudo make install
 
 编译需要添加指令`pkg-config --cflags --libs dbus-cxx-2.0`, 详见makefile
 
-
+    
 # 例程
 
 > 例程来自官方文档例程，详细介绍去文档[dbus-cxx: Quick start example 0: A simple server and client](https://dbus-cxx.github.io/quick_start_example_0.html)
