@@ -1,5 +1,5 @@
 ---
-title: 基于NoneBot2的瓦罗兰特商店插件开发笔记
+title: 基于NoneBot2的瓦罗兰特商店插件开发笔记(未完成)
 date: 2023-01-29 18:58:23
 tags:
 - Nonebot2
@@ -8,6 +8,7 @@ tags:
 categories: 
 - 杂项
 excerpt: 我开发瓦罗兰特每日商店qq机器人插件的笔记
+hide: true
 ---
 
 目前进度：刚开始
@@ -46,7 +47,18 @@ async def run(username, password):
     r = await session.post('https://auth.riotgames.com/api/v1/authorization', json=data)
     print(r.text)
 
-    # ...
+    # ... ...
 ```
 
-对于cloudflare我也只能从最基本的修改headers入手
+在这个github的issue中找到了跟我一样的问题，并找到了一个解决方法，便是使用[别人的轮子](https://github.com/floxay/python-riot-auth),在该项目的README和example中有很详细的使用方法。
+
+> 这个轮子其实应该自己也能实现，但是我对网络相关知识不够熟悉，按照他的样子折腾了一下午还是403，便接受使用轮子了
+> 目前先继续import，之后自己再移植到自己的代码内，减少对库的依赖
+
+使用该库之后便可以正确获取access_token等数据
+
+## 获取皮肤
+
+再通过API就可以获取皮肤了，这还是挺简单的，按照github的几个开源代码很容易就弄出来，接下来的问题就是怎么汉化。
+
+
