@@ -648,6 +648,7 @@ post:
   # 版权声明，会显示在每篇文章的结尾
   # Copyright, will be displayed at the end of each post
   copyright:
+  # 开启之后会在底部显示example.com/xxxxx，暂时没找到解决方法
     enable: true
 
     # CreativeCommons license
@@ -727,11 +728,13 @@ post:
   # 评论插件
   # Comment plugin
   comments:
-    enable: false
+    enable: true
+    # enable: false
     # 指定的插件，需要同时设置对应插件的必要参数
     # The specified plugin needs to set the necessary parameters at the same time
     # Options: utterances | disqus | gitalk | valine | waline | changyan | livere | remark42 | twikoo | cusdis | giscus
-    type: disqus
+    type: utterances
+    # type: disqus
 
 
 #---------------------------
@@ -746,8 +749,15 @@ post:
 # 基于 GitHub Issues
 # Based on GitHub Issues
 # See: https://utteranc.es
+# <script src="https://utteranc.es/client.js"
+#         repo="FreddieGeorge/utterances_commit"
+#         issue-term="title"
+#         theme="github-dark"
+#         crossorigin="anonymous"
+#         async>
+# </script>
 utterances:
-  repo:
+  repo: FreddieGeorge/utterances_commit
   issue_term: pathname
   label: utterances
   theme: github-light
