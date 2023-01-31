@@ -6,7 +6,8 @@ tags:
 - gocqhttp
 - python
 categories: 
-- 杂项
+- 开发
+- python
 excerpt: 我开发瓦罗兰特每日商店qq机器人插件的笔记
 hide: true
 ---
