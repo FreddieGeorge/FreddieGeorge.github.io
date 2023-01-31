@@ -10,7 +10,7 @@ categories:
 excerpt: Manjaro KDE桌面环境替换为dwm基本环境,并安装ranger资源管理器
 ---
 
-# Manjaro从KDE更换为dwm (更新中)
+# Manjaro从KDE更换为dwm
 
 看到一个[知乎答主的dwm桌面配置](https://www.zhihu.com/question/399967127/answer/1805622525)，感觉很有趣，便决定对自己kde桌面的manjaro笔记本改造一番。
 
@@ -26,9 +26,9 @@ excerpt: Manjaro KDE桌面环境替换为dwm基本环境,并安装ranger资源�
 
 [Manjaro/Arch Linux 下基于dwm打造完美桌面环境 (二): 安装基础组件 - 彭亚伦](https://zhuanlan.zhihu.com/p/395307199)
 
-[入坑dwm——原来窗口管理器还可以这样用 - 阿州](https://zhuanlan.zhihu.com/p/183861786)
-
 > (这篇后续咕咕咕了，但是还是很感谢大佬)
+
+[入坑dwm——原来窗口管理器还可以这样用 - 阿州](https://zhuanlan.zhihu.com/p/183861786)
 
 [Simple DWM install on Manjaro XFCE/KDE - YouTube](https://www.youtube.com/watch?v=dP8OKP-r1tw)(我大体上是根据这个视频来操作的，但是需要魔法)
 
@@ -46,8 +46,8 @@ dwm *(Dynamic window manager)* 是 suckless开发的一个用于 [X窗口系统]
 
 ## 环境介绍
 
-* cpu: i5-7650
-* 操作系统：Manjaro
+* cpu: i5-8250U
+* 操作系统：Manjaro with Plasma(X11)
 
 ## 安装过程
 
@@ -98,4 +98,15 @@ Type=Application
 
 > Exec 目录可以从dwm源码的Makefile找到
 
+## 完成
+
 重启之后就可以在登录界面的右下角看到桌面环境的选择按钮了
+
+选择DWM，登陆账户，就可以看到这个黑乎乎的桌面了。输入 `Alt` + `Shift` + `Enter` 就能看到终端界面了
+
+![DWM桌面初见](https://raw.githubusercontent.com/FreddieGeorge/blogImg/main/img/2023-01-31_20-06.png)
+
+> 说实话刚看到这个桌面的时候我是想放弃的，真的是太丑陋了xD
+
+
+至此DWM安装完成，接下来几天便开始配置我的DWM桌面了
