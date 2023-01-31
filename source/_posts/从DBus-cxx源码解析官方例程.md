@@ -5,7 +5,6 @@ tags:
 - DBUS-CXX
 - DBUS
 categories: 
-- 学习
 - Linux
 excerpt: 从官方例程中分析DBUS-CXX的实现,此为第一部分代码
 ---

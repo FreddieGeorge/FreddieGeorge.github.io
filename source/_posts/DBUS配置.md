@@ -4,7 +4,6 @@ date: 2023-01-23 13:29:59
 tags:
 - DBUS
 categories: 
-- 学习
 - Linux
 excerpt: DBUS协议相关配置和介绍
 ---
