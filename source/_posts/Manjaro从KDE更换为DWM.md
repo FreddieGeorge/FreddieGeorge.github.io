@@ -3,7 +3,7 @@ title: Manjaro从KDE更换为dwm
 date: 2023-01-31 14:28:21
 tags:
 - Manjaro
-- DWM
+- dwm
 categories: 
 - Linux
 - Manjaro
