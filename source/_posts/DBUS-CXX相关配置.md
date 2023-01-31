@@ -4,7 +4,6 @@ date: 2023-01-16 16:01:42
 tags:
 - DBUS
 categories: 
-- 学习
 - Linux
 excerpt: DBUS-CXX在ubuntu18.04的环境配置，包括cmake,libsigc++的配置
 ---
