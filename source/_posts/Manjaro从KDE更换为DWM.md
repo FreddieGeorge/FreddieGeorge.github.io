@@ -54,7 +54,7 @@ dwm *(Dynamic window manager)* 是 suckless开发的一个用于 [X窗口系统]
 ### 安装dwm
 
 1. `sudo pacman -S yay git vim base-devel`
-2. `git clone https://git.suckless.org/dwm` ,最好配置代理拉取代码
+2. `git clone https://git.suckless.org/dwm --depth=1`
 3. `cd dwm`
 4. `sudo make clean install`
 
@@ -62,7 +62,7 @@ dwm *(Dynamic window manager)* 是 suckless开发的一个用于 [X窗口系统]
 
 st是一个在X上的简单终端实现
 
-1. `git clone https://git.suckless.org/st`
+1. `git clone https://git.suckless.org/st --depth=1`
 2. `cd st`
 3. `sudo make clean install`
 
