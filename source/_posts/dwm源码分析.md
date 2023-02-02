@@ -8,9 +8,14 @@ categories:
 - Linux
 - Manjaro
 excerpt: 结合文档和资料，粗略解析dwm源码
+hide: true
 ---
 
 # dwm源码分析
+
+## 版本介绍
+
+dwm: version 6.4
 
 ## 准备工作
 
