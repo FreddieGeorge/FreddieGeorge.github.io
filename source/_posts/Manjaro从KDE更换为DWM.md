@@ -40,7 +40,7 @@ excerpt: Manjaro KDE桌面环境替换为dwm基本环境,并安装ranger资源�
 
 > 如果你折腾过 Arch Linux那你肯定知道配置sddm等显示管理器。
 
-dwm *(Dynamic window manager)* 是 suckless开发的一个用于 [X窗口系统](https://www.cnblogs.com/youxia/p/linuxdesktop009.html#_label1) 的动态桌面管理器。从他的英文原名的 *Dynamic* 也能看出来它的一个特点是动态，在dwm上的布局都可以动态应用。dwm的可定制性非常高，资源占用极低，非常轻量，源码大小只有80多KB。如果有一定的编程和linux基础的话可以尝试一下dwm。
+dwm *(Dynamic window manager)* 是 suckless开发的一个用于 [X](https://www.x.org/wiki/) 的动态桌面管理器。从他的英文原名的 *Dynamic* 也能看出来它的一个特点是动态，在dwm上的布局都可以动态应用。dwm的可定制性非常高，资源占用极低，非常轻量，源码大小只有80多KB。如果有一定的编程和linux基础的话可以尝试一下dwm。
 
 > 我想要更换KDE的一个原因也是KDE的占用有点高，而且会卡顿
 
