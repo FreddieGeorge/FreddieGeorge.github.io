@@ -9,7 +9,7 @@ categories:
 - Linux
 - vim
 excerpt: 结合文档和资料，粗略解析dwm源码
-hide: true
+
 ---
 
 ## 背景
@@ -17,6 +17,9 @@ hide: true
 这几天都在忙碌公司的项目，没空更新其他博客，但是也在忙中偷闲把工作虚拟机的vim界面给配置了一下，安装了nerdtree等好用的插件，用起来舒服多了。
 
 然后也了解到了强大的代码补全插件 YouCompleteMe 插件，便想着配置一下。结果这玩意弄了一两天。今天也在这里开个博客记录一下。
+
+> 这里一开始是用的--all想要一步到位，但是后面出现了golang的bug，我又用不上go，所以后面换--clang-completer
+> 所以有些bug不一定能复现出来
 
 ## 环境介绍
 
@@ -39,15 +42,15 @@ Vundle有多种[拉取源码的方式](https://github.com/VundleVim/Vundle.vim#q
 
 YouCompleteMe(以下简称YCM)需要python编译，在git 拉下YCM的源码之后还需要输入 `git submodule update --init --recursive`添加子模块 **ycmd**。
  
-在添加完成之后输入 `python3 ./install.py --all` 直接失败,提示 `ycmd requires Python >= 3.8.0`,而ubuntu18.04的默认python版本是python3.6.9。那好吧，我们来配置一下python3.8的环境
+在添加完成之后输入 `python3 ./install.py --clang-completer` 直接失败,提示 `ycmd requires Python >= 3.8.0`,而ubuntu18.04的默认python版本是python3.6.9。那好吧，我们来配置一下python3.8的环境
 
-### python3.8
+### python3.8问题
 
 首先，我强烈建议ubuntu18.04中的python3的默认版本不要随便修改，否则可能会有很多问题。
 
 按照[这个博客](https://www.jianshu.com/p/55a2a009fc1e)很快就配置好了3.8的环境，这里我并没有直接修改软链接为python，而是选择直接绝对路径调用python3.8。
 
-配置好之后再次来到YCM的路径，输入`/usr/local/python3/bin/python3.8 ./install.py --all`，然后再次报错
+配置好之后再次来到YCM的路径，输入`/usr/local/python3/bin/python3.8 ./install.py --clang-completer`，然后再次报错
 
 ```shell
 found static Python library (/usr/local/python3/lib/libpython3.8.a) but a dynamic one is required. You must use a Python compiled with the --enable-shared flag. If using pyenv, you need to run the command:
@@ -56,9 +59,9 @@ found static Python library (/usr/local/python3/lib/libpython3.8.a) but a dynami
 
 好嘛，意思就是我编译出来的python3.8是静态库`.a`,而YCM需要动态库`.so`，那我只能再回到python3.8的源码目录，在./configure 后面加了一串 `--enable-shared`.终于编译出来了动态库`libpython3.8.so.1.0`,并且把这个文件复制到了 /usr/lib下面。
 
-再再再回到YCM的目录，执行`/usr/local/python3/bin/python3.8 ./install.py --all`，还在报错。好在这次不是python的问题，这次是g++的问题。
+再再再回到YCM的目录，执行`/usr/local/python3/bin/python3.8 ./install.py --clang-completer`，还在报错。好在这次不是python的问题，这次是g++的问题。
 
-### g++
+### g++问题
 
 报错信息为：
 
@@ -88,4 +91,22 @@ CMake Error at ycm/CMakeLists.txt:115 (file):
 
 累了，直接找到github的issue找到[这个问题](https://github.com/ycm-core/YouCompleteMe/issues/1711#issuecomment-145131863),按照这个回答，我们把[他提供的下载链接](http://llvm.org/releases/3.7.0/clang+llvm-3.7.0-x86_64-linux-gnu-ubuntu-14.04.tar.xz)对应的文件下载下来，然后放入`~/.vim/bundle/YouCompleteMe/third_party/ycmd/clang_archives`中，不需要解压，然后重新执行 install.py,发现还是在下载，仔细一看这个回答都已经是2015年的回答了。于是继续找原因。
 
-(下班，明天继续更新)
+> 奇怪的是，错误之后我就下班了，今天上班重新执行了install，一样的指令，这次就通过了，想不明白为什么。。。
+
+<
+我又不用golang，
+### golang环境问题
+
+继续报错。
+
+```text
+can't load package: package golang.org/x/tools/gopls@v0.9.4
+//....
+package golang.org/x/tools/gopls@v0.9.4: unrecognized import path "golang.org/x/tools/gopls@v0.9.4" 
+```
+
+应该是golang的环境没有配，看来一下应该是缺少gopls，尝试手动下载，在终端输入`go get golang.org/x/tools/gopls`,等待一段时间后报错`dial tcp 142.251.42.241:443: i/o timeout`，那大概知道什么问题了。再次尝试ping这个ip，果然连接不上。奇怪的是我明明有配置代理，在主机端（也就是win下）ping这个ip，还是失败。
+
+然后我选择直接直接--all换--clang-completer，直接通过编译，然后打开vim输入:PluginInstall  即可
+
+至此安装完成
