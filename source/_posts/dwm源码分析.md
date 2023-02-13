@@ -28,7 +28,7 @@ dwm: version 6.4
 为了方便自己的后续开发和维护，也方便自己后续更换设备的配置迁移，我把dwm的源码放到了自己的github上。为此我新建了一个叫dwm的github仓库。在[上一篇博客](Manjaro从KDE更换为DWM.md)中拉下的dwm代码目录中，先执行 `rm .git -rf`,把suckless.org的git记录删掉，然后再 `git inti`,再把我的dwm仓库添加到远程仓库，最后新建了两个分支 dev 和 suckless_source。
 
 * dev 主要用来后续开发测试用，稳定之后再合并到main中
-* suckless_source主要是保存源代码，并在源码中添加自己的注释，此篇博客都是在此分支下工作
+* suckless_source 主要是保存最开始的suckless源代码
 
 ## 参考资料
 
