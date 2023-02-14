@@ -7,8 +7,7 @@ tags:
 - Python
 categories: 
 - Linux
-- vim
-excerpt: 结合文档和资料，粗略解析dwm源码
+excerpt: 配置YouCompleteMe的踩坑经历
 
 ---
 
