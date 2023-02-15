@@ -10,9 +10,9 @@ categories:
 excerpt: Manjaro KDE桌面环境替换为dwm基本环境,并安装ranger资源管理器
 ---
 
-# Manjaro从KDE更换为dwm
+# 前言
 
-看到一个[知乎答主的dwm桌面配置](https://www.zhihu.com/question/399967127/answer/1805622525)，感觉很有趣，便决定对自己kde桌面的manjaro笔记本改造一番。
+看到一个[知乎答主的dwm桌面配置](https://www.zhihu.com/question/399967127/answer/1805622525)，感觉很有趣，便决定对自己kde桌面的manjaro笔记本改造一番。而且KDE桌面有几个问题让我有点难以接受，首先是加载时间太长了，我的笔记本在登录用户之后还需要读条一段时间才能进入桌面，而且现在对于我来说桌面环境也没怎么用上过了，开机第一件事情就是打开终端。所以就
 
 这篇博客主要是自己折腾的记录，结合了很多博客，更多的还是查阅arch的wiki，如果想要自己学的话，多看官方文档和wiki等资料。
 
