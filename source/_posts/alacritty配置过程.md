@@ -8,6 +8,7 @@ categories:
 - Linux
 - Manjaro
 excerpt: Manjaro配置alacritty的过程
+hide: true
 ---
 
 ## 前言
