@@ -74,11 +74,11 @@ dmenu是suckless开发的一个基建的应用程序选择器。安装dmenu只�
 
 `sudo pacman -S ranger`
 
-## 配置DWM到DM
+## 配置dwm到dm
 
 安装好之后便可以开始把桌面环境给配置dwm。我们首先需要了解一下系统是怎么知道和选择我们的桌面环境。
 
-这里就需要回顾刚刚所说的 dm *(display manger)*。从[dm的wiki](https://wiki.archlinux.org/title/Display_manager#Session_configuration)中可以看到一个关键目录 `/usr/share/xsessions/`。从wiki中可以知道如果我们需要新增桌面环境的话需要在这个目录下面添加一个*.desktop 文件
+这里就需要回顾刚刚所说的 dm *(display manger)*。从[dm的wiki](https://wiki.archlinux.org/title/Display_manager#Session_configuration)中可以看到一个关键目录 `/usr/share/xsessions/`。从wiki中可以知道如果我们需要新增桌面环境的话需要在这个目录下面添加一个*.desktop 文件。
 
 > To add/remove entries to your display manager's session list, create/remove the .desktop files in /usr/share/xsessions/ as desired.
 
@@ -98,9 +98,11 @@ Type=Application
 
 > Exec 目录可以从dwm源码的Makefile找到
 
-## 完成
+## 启动DWM
 
-重启之后就可以在登录界面的右下角看到桌面环境的选择按钮了
+重启之后就可以在登录界面的右下角看到桌面环境的选择按钮了。
+
+> 不同dm的桌面环境选择按钮是不一样的，需要仔细寻找一下，如果`/usr/share/xsessions/DWM.desktop`没有问题的话应该是有DWM的选项的，但是位置不一样。比如Ubuntu18.04的环境按钮选择是需要先选择用户之后才能看到设置的按钮。
 
 选择DWM，登陆账户，就可以看到这个黑乎乎的桌面了。输入 `Alt` + `Shift` + `Enter` 就能看到终端界面了
 
@@ -109,4 +111,18 @@ Type=Application
 > 说实话刚看到这个桌面的时候我是想放弃的，真的是太丑陋了xD
 
 
-至此DWM安装完成，接下来几天便开始配置我的DWM桌面了
+至此DWM安装完成，接下来便开始配置我的DWM桌面了
+
+## 配置
+
+配置方面我参考了b站up主[TheCW](https://space.bilibili.com/13081489)的视频和他的github仓库，然后跟着b站[9thSummit的视频](https://www.bilibili.com/video/BV1pr4y1U78u/?share_source=copy_web&vd_source=7f70bc35f201f823b29deb345ca6ea83)完成了基本的配置，可以直接看这个视频学习。
+
+### 更改终端模拟器
+
+### 添加patches
+
+### 添加脚本
+
+### 动画效果
+
+### 成果
