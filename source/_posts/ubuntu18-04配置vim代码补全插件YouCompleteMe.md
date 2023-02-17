@@ -1,5 +1,5 @@
 ---
-title: ubuntu18.04配置vim代码补全插件YouCompleteMeu
+title: ubuntu18.04配置vim代码补全插件YouCompleteMe
 date: 2023-02-09 16:12:08
 tags:
 - ubuntu

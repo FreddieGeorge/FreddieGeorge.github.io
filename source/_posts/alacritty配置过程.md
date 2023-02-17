@@ -20,11 +20,24 @@ Manjaro安装alacritty也很简单，只需要`sudo pacman -S alacritty`即可�
 
 在我安装的时候，alacritty的版本为0.11.0,以下配置都以这个版本为准，如有更新需自行查阅官方文档
 
+## 主题
+
+我也懒得去折腾自己的主题了，感觉[官方的主题](https://github.com/alacritty/alacritty-theme)都看着挺顺眼,便安装了官方的主题，直接输入这两条指令即可
+
+```shell
+mkdir -p ~/.config/alacritty/themes
+git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes
+```
+然后在开头import自己想要的主题yaml文件，我这边选择的是`material_theme`主题，具体效果在github的README中都有展示。
+
 ## 配置
 
 在我的Manjaro系统中，alacritty的字体间隔会出现问题，按照[这篇博客](https://www.cnblogs.com/siyingcheng/p/11706436.html)的配置文件新建了`~/.config/alacritty/alacritty.yml`文件，在文件中配置如下
 
 ```yaml
+# 导入主题颜色配置
+import:
+    - /home/flork/.config/alacritty/themes/themes/material_theme.yaml
 # 原来tabspaces是8
 tabspaces: 4
 # 字体使用Soure Code Pro
