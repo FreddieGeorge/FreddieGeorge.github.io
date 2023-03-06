@@ -50,7 +50,7 @@ fi
 | [ int1 -lt int2 ]  | int1 <  int2 | less than |
 | [ int1 -le int2 ]  | int1 <= int2 | less equal |
 
-## 常用字符串判断
+### 常用字符串判断
 
 |  表达式   | 作用  |
 |  :--:  | :--:  |
@@ -108,13 +108,35 @@ fi
 
 <!-- 待更新 -->
 
+一个shell脚本需要获取的最关键的路径主要有：shell脚本所在位置的绝对路径，执行脚本的路径。
+
+### 脚本所在位置的绝对路径
+
+shell脚本的路径可以使用dirname来获取，使用也比较简单
+
+```shell
+# dirname
+SHELL_FOLDER=$(cd $(dirname "$0");pwd)
+
+# readlink
+SHELL_FOLDER=$(dirname $(readlink -f "$0"))
+```
+
+### 执行脚本的路径
+
+执行脚本的路径直接使用`pwd`即可
+
+
 ## 打印帮助信息
 
 参考自该[文章](https://developer.aliyun.com/article/972038)，这文章讲得很详细了。
 
-我们只需要在开头部分写入三个`###`起始的注释，利用sed指令即可完成打印，编写一个help函数即可
+我们只需要在开头部分写入三个`###`起始的注释，利用sed指令即可完成打印，编写一个help函数即可,然后根据后面的参数处理部分使用-h即可打印出来
 
 ```shell
+### Info
+### ......
+
 help() {
     sed -rn 's/^### ?//;T;p;' "$0"
 }
@@ -132,7 +154,7 @@ help() {
 | $! | 后台运行的最后一个进程的ID号 |
 | $@ | 显示所有向脚本传递的参数，但是每个参数都加引号 |
 | $0 | 脚本文件名称 |
-| $[num] | 第num个参数 |
+| $n | 第 n 个参数 |
 | $? | 最后指令的退出状态。0表示没有任何错误 |
 | $- | shell使用的当前选项 |
 
@@ -145,7 +167,7 @@ getopt的详细用法
 ```shell
 
 # 参数处理部分，使用getopt
-ARGS=`getopt -o htm: --long tar,mcu::,help -n "$0" -- "$@"`
+ARGS=`getopt -o ht --long tar,help -n "$0" -- "$@"`
 
 if [ $? != 0 ]; then
     echo "Terminating..."
@@ -182,8 +204,6 @@ do
 done
 
 # 处理完opt后，剩下的参数都在$1 $2...
-# 比如脚本默认需要传入一个路径，不需要任何参数
-# 就可以在这里判断[ $# -eq 1 ]
 
 ```
 
@@ -231,13 +251,39 @@ function func_name() {
 
 shell中字符串有两种表达方法，分别是单引号和双引号,具体区别不再赘述，我一般直接使用双引号字符串。
 
-而字符串的处理最常用的是怎么分割或者拼接字符串，或者识别字符串的头尾。
+### 字符串判断
 
-<!-- 待更新 -->
+```shell
+${var}              # 变量var的值, 与$var相同
+${var-DEFAULT}      # 如果var没有被声明, 那么就以$DEFAULT作为其值 *
+${var:-DEFAULT}     # 如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值 *
+${var=DEFAULT}      # 如果var没有被声明, 那么就以$DEFAULT作为其值 *
+${var:=DEFAULT}     # 如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值 *
+${var+OTHER}        # 如果var声明了, 那么其值就是$OTHER, 否则就为null字符串
+${var:+OTHER}       # 如果var被设置了, 那么其值就是$OTHER, 否则就为null字符串
+${var?ERR_MSG}      # 如果var没被声明, 那么就打印$ERR_MSG *
+${var:?ERR_MSG}     # 如果var没被设置, 那么就打印$ERR_MSG *
+${!varprefix*}      # 匹配之前所有以varprefix开头进行声明的变量
+${!varprefix@}      # 匹配之前所有以varprefix开头进行声明的变量
+```
 
+### 字符串操作
 
+```shell
+${#string}                          # $string的长度 
+${string:position}                  # 在$string中, 从位置$position开始提取子串
+${string:position:length}           # 在$string中, 从位置$position开始提取长度为$length的子串     
+${string#substring}                 # 从变量$string的开头, 删除最短匹配$substring的子串
+${string##substring}                # 从变量$string的开头, 删除最长匹配$substring的子串
+${string%substring}                 # 从变量$string的结尾, 删除最短匹配$substring的子串
+${string%%substring}                # 从变量$string的结尾, 删除最长匹配$substring的子串   
+${string/substring/replacement}     # 使用$replacement, 来代替第一个匹配的$substring
+${string//substring/replacement}    # 使用$replacement, 代替所有匹配的$substring
+${string/#substring/replacement}    # 如果$string的前缀匹配$substring, 那么就用$replacement来代替匹配到的$substring
+${string/%substring/replacement}    # 如果$string的后缀匹配$substring, 那么就用$replacement来代替匹配到的$substring
+```
 ## 杂项
 
-shell脚本其实更是一个方便批量处理的工具，很多拓展的东西都是通过linux的指令来完成。
+shell脚本其实更是一个方便批量处理的工具，许多信息也可以通过linux的指令来完成。
 
 * 获取操作类型: `uanme -s`
