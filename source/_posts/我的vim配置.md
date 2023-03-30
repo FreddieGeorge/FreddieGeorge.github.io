@@ -189,7 +189,8 @@ let g:airline_theme='minimalist'
 
 ### 代码补全插件
 
-详见[ubuntu18.04配置vim代码补全插件YouCompleteMeu](ubuntu18-04配置vim代码补全插件YouCompleteMe.md)
+详见[ubuntu18.04配置vim代码补全插件YouCompleteMeu](https://freddiegeorge.github.io/2023/02/09/ubuntu18-04%E9%85%8D%E7%BD%AEvim%E4%BB%A3%E7%A0%81%E8%A1%A5%E5%85%A8%E6%8F%92%E4%BB%B6YouCompleteMe/)
+
 
 ### tagbar插件
 
@@ -280,7 +281,6 @@ let g:NERDTrimTrailingWhitespace = 1
 let g:NERDToggleCheckAllLines = 1
 
 ```
-
 ## 总结
 
 最后的配置成果还是挺不错的，但是我对vim还是不够熟悉，仅限于一些基本的增删改查操作，目前也没有这个应用习惯，写项目还是使用vscode居多，接下来在我的Manjaro中尽量多尝试一下vim的操作，熟悉一下吧。
