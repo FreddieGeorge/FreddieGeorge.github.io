@@ -8,7 +8,6 @@ categories:
 - 嵌入式
 - 全志
 excerpt: 这是这段时间的T507调试笔记，坑还是挺多的
-hide: true
 ---
 
 ## 前言
