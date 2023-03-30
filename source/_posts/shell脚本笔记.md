@@ -13,6 +13,80 @@ excerpt: shell脚本常用语法、技巧
 
 最近在工作中编写了几个脚本方便自己的工作流程，在其中也遇到了几个问题，也积累了一些方法和技巧。这篇博客中记录一些shell脚本相关的知识点，但不会包含最基本的内容。
 
+## 循环
+
+### for循环
+
+[bash-for-loop](https://www.cyberciti.biz/faq/bash-for-loop/)
+
+for循环的基本语法如下
+
+```shell
+for varname in list
+do
+    # do something
+done
+```
+
+for循环的主要用途是将list的元素取出，依序放到varname中，然后执行do和done之间的命令，直到所有元素被取出。
+
+for常用来遍历文件，或者遍历整数等
+
+```shell
+# file loop
+for VARIABLE in file1 file2 file3
+do
+    command1 on $VARIABLE
+    command2
+    commandN
+done
+
+# var loop
+for VARIABLE in 1 2 3 4 5 .. N
+do
+    command1
+    command2
+    commandN
+done
+
+# 这种是更高级的使用方法，详细见参考资料
+for OUTPUT in $(Linux-Or-Unix-Command-Here)
+do
+    command1 on $OUTPUT
+    command2 on $OUTPUT
+    commandN
+done
+```
+
+### while循环
+
+[玩转Bash脚本：循环结构之while循环](https://blog.csdn.net/guodongxiaren/article/details/43341769)
+
+while循环的基本语法如下
+
+```shell
+while condition
+do
+    # do something
+done
+```
+
+while循环经常用到的是搭配转向输入，例如
+
+```shell
+#!/bin/bash
+while grep "123"
+do
+  # do somethin
+done < /path/to/file
+```
+这个脚本是用来将文件内容逐行传递给while后面的指令，然后再执行循环体。
+
+当循环体为空,则可以看成`cat /path/to/file | grep "123"`
+
+搭配转向的使用更多是结合`read`，用来将文件内容逐行去除，赋给read后面的变量。
+
+此外还有一个until循环，就是while循环的相反用法，while测试的是真值，until判断的是假值
 
 ## 条件控制
 
@@ -280,6 +354,23 @@ ${string//substring/replacement}    # 使用$replacement, 代替所有匹配的$
 ${string/#substring/replacement}    # 如果$string的前缀匹配$substring, 那么就用$replacement来代替匹配到的$substring
 ${string/%substring/replacement}    # 如果$string的后缀匹配$substring, 那么就用$replacement来代替匹配到的$substring
 ```
+
+比较常用的是利用字符串操作，处理掉文件的后缀，前缀等。例如在我的一个ffmpeg批量转换的脚本中，对raw文件批量转为bmp文件，就可以这样写
+
+```shell
+for file in ./*.raw
+do
+    # 去除开头的./
+    filename=${file:2}
+
+    ffmpeg -vcodec rawvideo -f rawvideo -pix_fmt rgb32 -s 1280x720 -i ${filename} -f image2 -vframes 1 -vcodec bmp output/${filename/%.raw/.bmp}
+    # 出错停止
+    if [ $? -ne 0 ];then
+        exit
+    fi
+done
+```
+
 ## 杂项
 
 shell脚本其实更是一个方便批量处理的工具，许多信息也可以通过linux的指令来完成。
