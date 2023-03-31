@@ -31,7 +31,7 @@ Github有个仓库叫[Awesome-Profile-README-templates](https://github.com/kautu
 
 ### 添加waka-time代码统计
 
-waka-time是一个代码时间等统计的插件。我使用的代码编辑软件以VSCode为主，并且很早就安装好了waka-time的统计插件。所以我决定在自己的README中添加代码统计。具体参考了这篇[博客](https://blog.csdn.net/weixin_43233914/article/details/126087735)。
+[waka-time](https://wakatime.com/dashboard)是一个代码时间等统计的插件。我使用的代码编辑软件以VSCode为主，并且很早就安装好了waka-time的统计插件。所以我决定在自己的README中添加代码统计。具体参考了这篇[博客](https://blog.csdn.net/weixin_43233914/article/details/126087735)。
 
 在vscode的配置部分本文就跳过了。
 
@@ -49,7 +49,23 @@ waka-time是一个代码时间等统计的插件。我使用的代码编辑软�
 
 接下来就需要添加一个让README.md能够每天自动刷新。workflow的文档在[github官网](https://docs.github.com/en/actions/using-workflows/about-workflows)可以找到
 
-workflows的模板大概在
+workflows的模板大概是
 
-使用的Action仓库是[athul/waka-readme](https://github.com/athul/waka-readme)，之前使用的那个有显示错误
+```yaml
+name: learn-github-actions
+run-name: ${{ github.actor }} is learning GitHub Actions
+on: [push]
+jobs:
+  check-bats-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+      - run: npm install -g bats
+      - run: bats -v
+```
+
+使用的Action仓库是[athul/waka-readme](https://github.com/athul/waka-readme)
 
