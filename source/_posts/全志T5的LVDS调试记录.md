@@ -189,7 +189,7 @@ disp 1, clk: pll(594000000),clk(594000000),dclk(74250000) dsi_rate(594000000)
 
 再查看了LVDS的时序图，可以看到一个时钟周期会发送7个数据，猜测全志的LVDS时序是PLL时钟用来采样数据，PLL/7 直接当作dclk频率，达到同步。而软件的分频设置并没有用，反而会影响正常的采样，导致输出时钟波形失真
 
-![LVDS的时序图](https://img-blog.csdn.net/20160128213630063?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
+![LVDS的时序图](https://raw.githubusercontent.com/FreddieGeorge/blogImg/main/img/LVDS_timming.png)
 
 ## 时钟
 
