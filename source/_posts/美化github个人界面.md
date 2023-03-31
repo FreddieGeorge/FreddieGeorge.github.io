@@ -17,20 +17,39 @@ hide: true
 
 示例界面：[FreddieGeorge](https://github.com/FreddieGeorge)
 
-## 参考模板
+## 参考样例
 
 Github有个仓库叫[Awesome-Profile-README-templates](https://github.com/kautukkundan/Awesome-Profile-README-templates)，收集了很多漂亮的Github界面。当然很多也没有用到
 
 ## 过程 
 
-### profile 界面展示README
+### 新建profile仓库
 
-首先需要一个仓库，名字与你的github用户名一致，官方叫做profile repository。里面的 README.md 的内容就会展示在自己的profile上。
+首先需要一个仓库，名字与你的github用户名一致，这个仓库官方叫做profile repository。里面的 README.md 的内容就会展示在自己的profile上。
+
+在github中新建一个仓库，命名为`FreddieGeorge`，那么这个就是我的profile repository。在新建仓库的时候勾选上add README.md,即可自动生成一个README.file。后面都是基于这个README.md来操作。
 
 ### 添加waka-time代码统计
 
 waka-time是一个代码时间等统计的插件。我使用的代码编辑软件以VSCode为主，并且很早就安装好了waka-time的统计插件。所以我决定在自己的README中添加代码统计。具体参考了这篇[博客](https://blog.csdn.net/weixin_43233914/article/details/126087735)。
 
-#### 添加secret
+在vscode的配置部分本文就跳过了。
 
-在你的profile repository中的，也就是与你的用户名同名的仓库中
+#### 添加Action secret
+
+进入profile仓库中，选择Settings -> Secrets and variables -> Actions -> New repository secret,在Name中填写`WAKATIME_API_KEY`,value就是wakatime的API Key。
+
+然后需要获取Github仓库的API令牌，点击右上角头像-> Settings -> Developer settings -> Personal access tokens -> Tokens(classic),填写好note，设置好过期时间Expiration,然后权限选择repo和user，最后点击Generate token生成令牌，并将生成的令牌复制好
+
+然后就可以再次来到profile仓库中进入新建 repository secret的地方，再新建一个secret，Name设置为`GH_TOKEN`,value就是刚刚复制的令牌。
+
+至此Action secret配置完成。
+
+#### 添加workflows
+
+接下来就需要添加一个让README.md能够每天自动刷新。workflow的文档在[github官网](https://docs.github.com/en/actions/using-workflows/about-workflows)可以找到
+
+workflows的模板大概在
+
+使用的Action仓库是[athul/waka-readme](https://github.com/athul/waka-readme)，之前使用的那个有显示错误
+
