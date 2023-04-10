@@ -91,7 +91,7 @@ dmenu是suckless开发的一个基建的应用程序选择器。安装dmenu只�
 Encoding=UTF-8
 Name=DWM
 Comment=Dynamic Window Manager developed by suckless.org
-Exec=/usr/local/bin/bwm
+Exec=/usr/local/bin/dwm
 Icon=
 Type=Application
 ```
