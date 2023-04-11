@@ -473,11 +473,29 @@ x\{m,\} # 重复字符x，至少m次，如：/0\{5,\}/匹配至少有5个0的行
 x\{m,n\} # 重复字符x，至少m次，不多于n次，如：/0\{5,10\}/匹配5~10个0的行。  
 ```
 
-
 ### trap 命令
 
 trap指令是一个非常强大的指令，用来指定接受到信号之后的动作，或者在脚本被中断之后执行清理动作，在嵌入式的rcS中就有用到，使用也相对简单，具体看[该博客](https://wangchujiang.com/linux-command/c/trap.html)即可。
 
+### awk
+
+[awk](https://wangchujiang.com/linux-command/c/awk.html)是一种文本和数据处理的编程语言，功能强大，可以当作是一个脚本程序，具有极高的灵活性,但是使用也相对复杂。
+
+接下来举个例子，目的是获取某个交叉编译工具链的所在路径
+
+```shell
+> whereis aarch64-linux-gnu-gcc
+aarch64-linux-gnu-gcc: /home/flork/longan/out/gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu-gcc
+>
+> whereis aarch64-linux-gnu-gcc | sed 's/\/bin\/aarch64-linux-gnu-gcc//g' 
+aarch64-linux-gnu-gcc: /home/flork/longan/out/gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu
+>
+> whereis aarch64-linux-gnu-gcc | sed 's/\/bin\/aarch64-linux-gnu-gcc//g' | awk '{print $2}'
+/home/flork/longan/out/gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu
+```
+
 ### 其他
 
 * 获取操作类型: `uanme -s`
+
+学习这些指令靠背是不太现实的，最好的方法是自己想办法用他们，或者结合别人的例子把每句脚本一点点拆解开来。我是利用[TheCW](https://github.com/theniceboy)的dwm脚本，把`awk`和`sed`的几个常用语法熟悉了一遍。
