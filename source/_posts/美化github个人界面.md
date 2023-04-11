@@ -126,7 +126,7 @@ jobs:
           # SYMBOL_VERSION: 1 get graph like  this
 
           #  ██████████░░░░░░░░░░░░░░░ 
-          SYMBOL_VERSION: 3
+          SYMBOL_VERSION: 2
 
 ```
 
