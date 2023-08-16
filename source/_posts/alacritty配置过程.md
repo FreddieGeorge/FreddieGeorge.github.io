@@ -50,6 +50,7 @@ background_opacity: 0.9
 
 ```yaml
 # 导入主题颜色配置
+# 导入主题颜色配置
 import:
     - /home/flork/.config/alacritty/themes/themes/material_theme.yaml
 
@@ -58,7 +59,7 @@ font:
     normal:
         family: "SauceCodePro Nerd Font Mono"
         style: Regular
-    bold:v 
+    bold: 
         family: "SauceCodePro Nerd Font Mono"
         style: Bold
     italic:
@@ -69,6 +70,20 @@ font:
 window:
     opacity: 0.8
 
+# set startup mode
+startup_mode: Fullscreen
+
+# highlight window damage info
+highlight_damage: true
+
+# set cursor style
+cursor:
+  style: Beam
+
+# set shotcut
+key_bindings:
+  - { key: Return,   mods: Alt,           action: ToggleFullscreen } # bind Alt + Return Fullscreen 
+  - { key: F11   ,                        action: ToggleFullscreen } # bind F11 to Fullscreen 
 ```
 
 配置之后再次启动alacritty即可
