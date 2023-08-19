@@ -117,12 +117,65 @@ Type=Application
 
 配置方面我参考了b站up主[TheCW](https://space.bilibili.com/13081489)的视频和他的github仓库，然后跟着b站[9thSummit的视频](https://www.bilibili.com/video/BV1pr4y1U78u/?share_source=copy_web&vd_source=7f70bc35f201f823b29deb345ca6ea83)完成了基本的配置，可以直接看这个视频学习。
 
+我自己也将`config.h`做了一些简单的修改，比如更换了`*fonts[]`和`dmenufont[]`的字体和字号，由于更换的字体是NerdFont系列的，我再将`tags`，也就是dwm界面左上角代表不同窗口的1-9更换成了五个图标，还有不同窗口layouts的表示方式也更换为了图标。
+
 ### 更改终端模拟器
+
+修改`config.h`，将`Alt`+`Shift`+'Enter`的打开的终端改为我想要的`alacritty`终端
+
+```c
+// static const char *termcmd[] = { "st", NULL };
+static const char *termcmd[] = { "alacritty", NULL };
+```
+
+我的具体alacritty配置和安装可以看[另一篇博客](https://freddiegeorge.github.io/2023/02/14/alacritty%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B/)。
+
+再次`sudo make clean install`然后重启就可以看到终端更换了。
 
 ### 添加patches
 
+patches在[suckless的官网中](https://dwm.suckless.org/patches/),在左侧能看到有许多patches,如果不想要啃英文一个个找的话，这里有个很优秀的[github仓库](https://github.com/Katzeee/dwm-patches-chinese)将patches翻译为中文。
+
+补丁看自己喜欢的来安装，我个人安装了`uselessgap`,`autostart`,`barpadding`三个补丁，合入的方式为
+
+```shell
+cd /your/path/to/dwm_soucre
+
+patch < /path/to/patches.diff
+```
+
+补丁在合并的时候可能会与其他补丁产生冲突，要手动对比.rej文件解决冲突。
+
 ### 添加脚本
+
+这个脚本是在安装了`autostart`的基础上使用的。在合入这个脚本之后，可以在`dwm.c`中看到`scan()`函数中增加了一句`runautostart()`和增加了该函数实现。在官网中也可以看到对该脚本的介绍
+
+> This patch will make dwm run "~/.dwm/autostart_blocking.sh" and "~/.dwm/autostart.sh &" before entering the handler loop. One or both of these files can be ommited.
+
+脚本这些我暂时还没有研究，等后面再补充自己想要的功能，目前为是照搬了[jzz777](https://gitee.com/jzz777/dwm)的脚本，后续我有计划将脚本改造一下，符合我自己的使用习惯。
 
 ### 动画效果
 
-### 成果
+目前只是简单安装了一个picom，暂时还没有研究
+
+### rofi代替dmenu
+
+dmenu实在太简陋了,我还是喜欢颜值高一点的rofi。直接使用`yay -S rofi`安装即可，然后将dwm中的`config.h`修改一下`*dmenucmd[]`的值.然后简单配置一下rofi的主题即可
+
+```c
+static const char *dmenucmd[] = { "rofi", "show", "drun", "-theme", "/home/flork/.config/rofi/launchers/tyep-3/style-10.rasi", NULL };
+```
+
+### 壁纸
+
+壁纸软件使用的是`nitrogen`，直接用`nitrogen /path/to/wallpaper`即可设置壁纸，然后在autostart脚本添加`nitrogen --restroe &`即可
+
+## 成果
+
+最终成果如图所示。
+
+[!dwm配置图](tbd)
+
+## 总结
+
+一直以来无论是上班还是自己玩，我用linux也很少使用gui，偶尔看到了dwm便大为喜爱，目前除了vim还是不熟悉之外体验和颜值都上升了很多，这篇博客的后半段就是在为配好dwm的manjaro笔记本上使用的，整体还是相当满意的。
