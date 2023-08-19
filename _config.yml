@@ -107,5 +107,6 @@ theme: fluid
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: https://github.com/FreddieGeorge/freddiegeorge.github.io.git
+    #repo: https://github.com/FreddieGeorge/freddiegeorge.github.io.git
+  repo: git@github.com:FreddieGeorge/freddiegeorge.github.io.git
   branch: master
