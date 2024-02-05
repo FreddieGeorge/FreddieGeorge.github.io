@@ -1,6 +1,4 @@
----
-title: alacritty配置过程
-date: 2023-02-14 15:04:06
+--- title: alacritty配置过程 date: 2023-02-14 15:04:06
 tags:
 - alacritty
 - Linux
@@ -9,6 +7,10 @@ categories:
 - Manjaro
 excerpt: Manjaro配置alacritty的过程
 ---
+
+## 2024-3-6 update
+
+alacritty从v0.13.0后将配置文件从yaml移动到toml文件中，所以之前的yaml文件后续可能会作废，目前官方关于新的toml文件的使用方法还是比较齐全的，可以自行查看[官方手册](https://alacritty.org/config-alacritty.html)更新自己的配置文件，后续我的配置文件迁移过来后也会贴一份到博客中(TODO)
 
 ## 前言
 
