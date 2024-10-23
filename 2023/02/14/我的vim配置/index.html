@@ -1,0 +1,782 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fav.png">
+  <link rel="icon" href="/img/fav.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Flork">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文记录了我的简单vim配置">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我的vim配置">
+<meta property="og:url" content="https://freddiegeorge.github.io/2023/02/14/%E6%88%91%E7%9A%84vim%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="Flork&#39;s Blog">
+<meta property="og:description" content="本文记录了我的简单vim配置">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-02-14T00:49:14.000Z">
+<meta property="article:modified_time" content="2023-04-19T15:21:27.592Z">
+<meta property="article:author" content="Flork">
+<meta property="article:tag" content="vim">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>我的vim配置 - Flork&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"freddiegeorge.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"Qtg189pynID771nX5lcPlTHb-gzGzoHsz","app_key":"uhlcbJ5RXnRcmK0n7z7hg5In","server_url":"https://qtg189py.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Flork的小屋</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="我的vim配置"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-02-14 08:49" pubdate>
+          2023年2月14日 早上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          23 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">我的vim配置</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我很多时间都是在使用vscode，vim也只会一些基础的操作，但是这段时间看了几个博主的vim界面，觉得vim也有它很强大好看的地方，便决定给自己的vim简单配置一下。</p>
+<p>本文基本上都是按照官方文档在配置，也参考了很多博客。</p>
+<blockquote>
+<p>这篇没啥技术含量，基本就是看一下官方的README对着改，然后也没有自己额外配置，属于很基础简单的配置</p>
+</blockquote>
+<h2 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h2><p>Ubuntu18.04(经试验Manjaro同样适用)</p>
+<p>vim 9.0</p>
+<h2 id="基础配置"><a href="#基础配置" class="headerlink" title="基础配置"></a>基础配置</h2><p>先按照我的个人喜好将vim的原生配置设置一下。网上也有很多相关的教程配置。我的vim配置已经放到了我的<a target="_blank" rel="noopener" href="https://github.com/FreddieGeorge/my_vim.git">github仓库</a></p>
+<p>官方的配置文档可以在vim命令模式输入<code>:h option-list</code>查看完整的选项列表。</p>
+<p>在我的<code>~/.vimrc</code>中,最开始的配置如下，主要作用和功能都有写注释</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs text">set showcmd         &quot; 显示指令<br>set showmode        &quot; 显示当前模式<br><br>set encoding=utf-8  &quot; 设置编码格式<br><br>set laststatus=2    &quot; 状态栏<br>set number          &quot; 显示行号<br>set showmatch       &quot; 显示括号匹配<br>set hlsearch        &quot; 高亮搜索结果<br>set ruler           &quot; 显示光标当前位置<br><br>set tabstop=4       &quot; tab长度<br>set autoindent      &quot; 继承前一行的缩进方式<br>set shiftwidth=4    &quot; 设置自动缩进长度<br>set expandtab       &quot; 空格替换tab<br>set softtabstop=4   &quot; 退格键一次删除4个空格<br><br><br>&quot; 启用鼠标<br>set mouse=a<br>set selection=exclusive<br>set selectmode=mouse,key<br><br>&quot; 设置上下滚动保留行数为5<br>set scrolloff=5<br>&quot; 禁止创建交换文件<br>set noswapfile<br><br>&quot; 设置自动切换目录<br>set autochdir<br><br>&quot; true color<br>set termguicolors<br><br></code></pre></td></tr></table></figure>
+<h2 id="插件管理"><a href="#插件管理" class="headerlink" title="插件管理"></a>插件管理</h2><p>插件管理我使用的是<a target="_blank" rel="noopener" href="https://github.com/VundleVim/Vundle.vim">Vundle</a>,从仓库的README中也可以看到它的安装方法，具体为：</p>
+<ol>
+<li>输入<code>mkdir ~/.vim/bundle</code></li>
+<li><code>git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim</code></li>
+<li>编辑<code>~/.vimrc</code>,在上面的配置后添加如下语句 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs text">set nocompatible              &quot; be iMproved, required<br>filetype off                  &quot; required<br><br>&quot; set the runtime path to include Vundle and initialize<br>set rtp+=~/.vim/bundle/Vundle.vim<br>call vundle#begin()<br>&quot; alternatively, pass a path where Vundle should install plugins<br>&quot;call vundle#begin(&#x27;~/some/path/here&#x27;)<br><br>&quot; let Vundle manage Vundle, required<br>Plugin &#x27;VundleVim/Vundle.vim&#x27;<br><br>&quot; ==========================<br>&quot; Plugin Place<br>&quot; ==========================<br><br>&quot; All of your Plugins must be added before the following line<br>call vundle#end()            &quot; required<br>filetype plugin indent on    &quot; required<br></code></pre></td></tr></table></figure></li>
+<li>之后需要安装的插件只需要放在<code>vundle#begin()</code>和<code>vundle#end()</code>之间即可</li>
+</ol>
+<h2 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h2><h3 id="主题插件"><a href="#主题插件" class="headerlink" title="主题插件"></a>主题插件</h3><p>主题插件使用的是很经典的<a target="_blank" rel="noopener" href="https://github.com/altercation/vim-colors-solarized">vim-colors-solarized</a>,只需要在<code>vundle#begin()</code>和<code>vundle#end()</code>之间加入<code>Plugin &#39;altercation/vim-colors-solarized&#39;</code>，然后在vim中输入<code>:PluginInstall</code>即可自动下载。</p>
+<p>在<code>~/.vimrc</code>中添加配置如下</p>
+<blockquote>
+<p>建议注释好，做好分类</p>
+</blockquote>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs text">let g:solarized_termtrans = 1 &quot; use terminal background<br>let g:solarized_visibility = &quot;high&quot;<br><br>&quot; gui下为light，其他是dark<br>if has(&#x27;gui_running&#x27;)<br>    set background=light<br>else<br>    set background=dark<br>endif<br><br>&quot; 主题设置为solarized<br>colorscheme solarized<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="目录插件"><a href="#目录插件" class="headerlink" title="目录插件"></a>目录插件</h3><p>目录插件使用的是<a target="_blank" rel="noopener" href="https://github.com/preservim/nerdtree">NERDTree</a>,安装方法在官方README中都很详细了</p>
+<p><code>~/.vimrc</code>中</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs text">call vundle#begin()<br><br>  &quot; ... ...<br>  Plugin &#x27;preservim/nerdtree&#x27;<br><br>call vundle#end()<br></code></pre></td></tr></table></figure>
+
+<p>neadtree配置上我是安装README配置的，具体如下，更多详细使用方法这里不展开，自行查看文档或者资料</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs text">&quot; Start NERDTree and put the cursor back in the other window.<br>&quot; vim 打开时自动打开nerdtree但是不聚焦在nerd中<br>autocmd VimEnter * NERDTree | wincmd p<br><br>&quot;  Exit Vim if NERDTree is the only window remaining in the only tab.<br>&quot; 退出vim时如果只剩下nerdtree窗口，nerdtree也退出<br>autocmd BufEnter * if tabpagenr(&#x27;$&#x27;) == 1 &amp;&amp; winnr(&#x27;$&#x27;) == 1 &amp;&amp; exists(&#x27;b:NERDTree&#x27;) &amp;&amp; b:NERDTree.isTabTree() | quit | endif<br><br>&quot; If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.<br>&quot; 防止nerdtree被替代，新窗口自动在nerd之外的窗口打开<br>autocmd BufEnter * if bufname(&#x27;#&#x27;) =~ &#x27;NERD_tree_\d\+&#x27; &amp;&amp; bufname(&#x27;%&#x27;) !~ &#x27;NERD_tree_\d\+&#x27; &amp;&amp; winnr(&#x27;$&#x27;) &gt; 1 |<br>    \ let buf=bufnr() | buffer# | execute &quot;normal! \&lt;C-W&gt;w&quot; | execute &#x27;buffer&#x27;.buf | endif<br><br>&quot; F2 打开NERDTree<br>map &lt;F2&gt; :NERDTreeToggle&lt;CR&gt;<br>let NERDTreeWinSize=30<br>&quot; 靠左显示<br>let NERDTreeWinPos=&quot;left&quot;<br></code></pre></td></tr></table></figure>
+
+<h3 id="状态栏插件"><a href="#状态栏插件" class="headerlink" title="状态栏插件"></a>状态栏插件</h3><p>使用<a target="_blank" rel="noopener" href="https://github.com/vim-airline/vim-airline">vim-airline</a>,配置如下</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs text"><br>&quot; ~/.vimrc<br><br>call vundle#begin()<br><br>  &quot; ... ...<br>  Plugin &#x27;vim-airline/vim-airline&#x27;<br>  Plugin &#x27;vim-airline/vim-airline-themes&#x27;<br><br>call vundle#end()<br><br>&quot; ... ...<br><br>&quot; ============= vim-airline ============<br>&quot; 字体<br>let g:airline_powerline_fonts=1<br>&quot; 主题<br>let g:airline_theme=&#x27;minimalist&#x27;<br></code></pre></td></tr></table></figure>
+
+<h3 id="代码补全插件"><a href="#代码补全插件" class="headerlink" title="代码补全插件"></a>代码补全插件</h3><p>详见<a href="https://freddiegeorge.github.io/2023/02/09/ubuntu18-04%E9%85%8D%E7%BD%AEvim%E4%BB%A3%E7%A0%81%E8%A1%A5%E5%85%A8%E6%8F%92%E4%BB%B6YouCompleteMe/">ubuntu18.04配置vim代码补全插件YouCompleteMeu</a></p>
+<h3 id="tagbar插件"><a href="#tagbar插件" class="headerlink" title="tagbar插件"></a>tagbar插件</h3><p>使用<a target="_blank" rel="noopener" href="https://github.com/preservim/tagbar">tagbar</a>,配置如下</p>
+<blockquote>
+<p>这个暂时没有用上，不知道具体好不好用，应该是跟vscode的大纲类似的东西</p>
+</blockquote>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs text"><br>&quot; ~/.vimrc<br><br>call vundle#begin()<br><br>  &quot; ... ...<br>  Plugin &#x27;majutsushi/tagbar&#x27;<br><br>call vundle#end()<br><br>&quot; ... ...<br><br>&quot; ============= tagbar ============<br>let g:tagbar_width=35<br>let g:tagbar_autofocus=1<br>let g:tagbar_left=1 &quot; tagbar放在窗口左边<br>&quot; tagbar启动绑定到F3<br>nmap &lt;F3&gt; :TagbarToggle&lt;CR&gt;  <br></code></pre></td></tr></table></figure>
+
+<h3 id="goyo插件"><a href="#goyo插件" class="headerlink" title="goyo插件"></a>goyo插件</h3><p><a target="_blank" rel="noopener" href="https://news.itsfoss.com/configuring-vim-writing/">goyo</a>还是我在<a target="_blank" rel="noopener" href="https://news.itsfoss.com/configuring-vim-writing/">这篇文章</a>看到的，觉得挺有意思，也加上去了。goyo主要还是给写作这种用途使用的，用来专注写作，比如写博客，写小说搭配同一个作者的<a target="_blank" rel="noopener" href="https://github.com/junegunn/limelight.vim">limelight</a>效果很不错。但是我这里并没有安装limelight，主要是在ubuntu下面的goyo模式上下会有黑边，在看了issue之后也还没找到解决方法，所以暂时先不管，晚上试试manjaro下效果会不会好一点。</p>
+<p>安装和使用也很简单，在官方的README中就有</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs text">&quot; ~/.vimrc<br><br>call vundle#begin()<br><br>  &quot; ... ...<br>  Plugin &#x27;junegunn/goyo.vim&#x27;<br><br>call vundle#end()<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="注释插件"><a href="#注释插件" class="headerlink" title="注释插件"></a>注释插件</h3><p>注释插件使用<a target="_blank" rel="noopener" href="https://github.com/preservim/nerdtree">NERDTree</a></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs text">&quot; ~/.vimrc<br><br>call vundle#begin()<br><br>  &quot; ... ...<br>  Plugin &#x27;preservim/nerdcommenter&#x27;<br><br>call vundle#end()<br><br>&quot; ... ...<br>&quot;============ NERDCommenter ======<br>&quot; Create default mappings<br>let g:NERDCreateDefaultMappings = 1<br><br>&quot; Add spaces after comment delimiters by default<br>let g:NERDSpaceDelims = 1<br><br>&quot; Use compact syntax for prettified multi-line comments<br>let g:NERDCompactSexyComs = 1<br><br>&quot; Align line-wise comment delimiters flush left instead of following code indentation<br>let g:NERDDefaultAlign = &#x27;left&#x27;<br><br>&quot; Set a language to use its alternate delimiters by default<br>let g:NERDAltDelims_java = 1<br><br>&quot; Add your own custom formats or override the defaults<br>let g:NERDCustomDelimiters = &#123; &#x27;c&#x27;: &#123; &#x27;left&#x27;: &#x27;/**&#x27;,&#x27;right&#x27;: &#x27;*/&#x27; &#125; &#125;<br><br>&quot; Allow commenting and inverting empty lines (useful when commenting a region)<br>let g:NERDCommentEmptyLines = 1<br><br>&quot; Enable trimming of trailing whitespace when uncommenting<br>let g:NERDTrimTrailingWhitespace = 1<br><br>&quot; Enable NERDCommenterToggle to check all selected lines is commented or not<br>let g:NERDToggleCheckAllLines = 1<br><br></code></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>最后的配置成果还是挺不错的，但是我对vim还是不够熟悉，仅限于一些基本的增删改查操作，目前也没有这个应用习惯，写项目还是使用vscode居多，接下来在我的Manjaro中尽量多尝试一下vim的操作，熟悉一下吧。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Linux/" class="category-chain-item">Linux</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/vim/">#vim</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>我的vim配置</div>
+      <div>https://freddiegeorge.github.io/2023/02/14/我的vim配置/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Flork</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年2月14日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/02/14/alacritty%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B/" title="alacritty配置过程">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">alacritty配置过程</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/02/09/ubuntu18-04%E9%85%8D%E7%BD%AEvim%E4%BB%A3%E7%A0%81%E8%A1%A5%E5%85%A8%E6%8F%92%E4%BB%B6YouCompleteMe/" title="ubuntu18.04配置vim代码补全插件YouCompleteMe">
+                        <span class="hidden-mobile">ubuntu18.04配置vim代码补全插件YouCompleteMe</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'FreddieGeorge/utterances_commit');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

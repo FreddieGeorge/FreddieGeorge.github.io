@@ -1,0 +1,830 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fav.png">
+  <link rel="icon" href="/img/fav.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Flork">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Manjaro KDE桌面环境替换为dwm基本环境,并安装ranger资源管理器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Manjaro从KDE更换为dwm">
+<meta property="og:url" content="https://freddiegeorge.github.io/2023/01/31/Manjaro%E4%BB%8EKDE%E6%9B%B4%E6%8D%A2%E4%B8%BADWM/index.html">
+<meta property="og:site_name" content="Flork&#39;s Blog">
+<meta property="og:description" content="Manjaro KDE桌面环境替换为dwm基本环境,并安装ranger资源管理器">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/FreddieGeorge/blogImg/main/img/2023-01-31_20-06.png">
+<meta property="article:published_time" content="2023-01-31T06:28:21.000Z">
+<meta property="article:modified_time" content="2024-10-23T09:53:38.506Z">
+<meta property="article:author" content="Flork">
+<meta property="article:tag" content="Manjaro">
+<meta property="article:tag" content="dwm">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/FreddieGeorge/blogImg/main/img/2023-01-31_20-06.png">
+  
+  
+  
+  <title>Manjaro从KDE更换为dwm - Flork&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"freddiegeorge.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"Qtg189pynID771nX5lcPlTHb-gzGzoHsz","app_key":"uhlcbJ5RXnRcmK0n7z7hg5In","server_url":"https://qtg189py.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Flork的小屋</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Manjaro从KDE更换为dwm"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-31 14:28" pubdate>
+          2023年1月31日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          16 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Manjaro从KDE更换为dwm</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>看到一个<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/399967127/answer/1805622525">知乎答主的dwm桌面配置</a>，感觉很有趣，便决定对自己kde桌面的manjaro笔记本改造一番。而且KDE桌面有几个问题让我有点难以接受，首先是加载时间太长了，我的笔记本在登录用户之后还需要读条一段时间才能进入桌面，而且现在对于我来说桌面环境也没怎么用上过了，开机第一件事情就是打开终端。所以就</p>
+<p>这篇博客主要是自己折腾的记录，结合了很多博客，更多的还是查阅arch的wiki，如果想要自己学的话，多看官方文档和wiki等资料。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>首先还是推荐仔细查看官方文档，文档对dwm的文件作用等写得很详细</p>
+<p><a target="_blank" rel="noopener" href="https://dwm.suckless.org/">dwm官方文档</a></p>
+<p><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/dwm">Arch Linux dwm 文档</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/395307199">Manjaro&#x2F;Arch Linux 下基于dwm打造完美桌面环境 (二): 安装基础组件 - 彭亚伦</a></p>
+<blockquote>
+<p>(这篇后续咕咕咕了，但是还是很感谢大佬)</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/183861786">入坑dwm——原来窗口管理器还可以这样用 - 阿州</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=dP8OKP-r1tw">Simple DWM install on Manjaro XFCE&#x2F;KDE - YouTube</a>(我大体上是根据这个视频来操作的，但是需要魔法)</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>我现在的桌面用的KDE，如果有用过unbuntu的话应该也听过GNOuME，而GNOME，KDE等都是叫做桌面环境 *(Desktop Enviroment,DE)*，同时这几个都带了自己的窗口管理器 *(WindowS Manager,WM)*，主要通过鼠标操作；而dwm,i3wm等只有WM，主要通过键盘操作。</p>
+<p>而我们用来登录的界面，叫做显示管理器 <em>(Display Manger,DM)</em>,负责引导用户输入账号密码进入桌面，接下来就交给KDE了。所以我们在从KDE切换到dwm的时候，只需要重启登录的时候选择对应的KDE或者dwm就行了。</p>
+<blockquote>
+<p>如果你折腾过 Arch Linux那你肯定知道配置sddm等显示管理器。</p>
+</blockquote>
+<p>dwm <em>(Dynamic window manager)</em> 是 suckless开发的一个用于 <a target="_blank" rel="noopener" href="https://www.x.org/wiki/">X</a> 的动态桌面管理器。从他的英文原名的 <em>Dynamic</em> 也能看出来它的一个特点是动态，在dwm上的布局都可以动态应用。dwm的可定制性非常高，资源占用极低，非常轻量，源码大小只有80多KB。如果有一定的编程和linux基础的话可以尝试一下dwm。</p>
+<blockquote>
+<p>我想要更换KDE的一个原因也是KDE的占用有点高，而且会卡顿</p>
+</blockquote>
+<h2 id="环境介绍"><a href="#环境介绍" class="headerlink" title="环境介绍"></a>环境介绍</h2><ul>
+<li>cpu: i5-8250U</li>
+<li>操作系统：Manjaro with Plasma(X11)</li>
+</ul>
+<h2 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h2><h3 id="安装dwm"><a href="#安装dwm" class="headerlink" title="安装dwm"></a>安装dwm</h3><ol>
+<li><code>sudo pacman -S yay git vim base-devel</code></li>
+<li><code>git clone https://git.suckless.org/dwm --depth=1</code></li>
+<li><code>cd dwm</code></li>
+<li><code>sudo make clean install</code></li>
+</ol>
+<h3 id="安装st"><a href="#安装st" class="headerlink" title="安装st"></a>安装st</h3><p>st是一个在X上的简单终端实现</p>
+<ol>
+<li><code>git clone https://git.suckless.org/st --depth=1</code></li>
+<li><code>cd st</code></li>
+<li><code>sudo make clean install</code></li>
+</ol>
+<h3 id="安装dmenu"><a href="#安装dmenu" class="headerlink" title="安装dmenu"></a>安装dmenu</h3><p>dmenu是suckless开发的一个基建的应用程序选择器。安装dmenu只需要终端输入 <code>sudo pacman -S dmenu</code> 即可</p>
+<h3 id="安装Ranger"><a href="#安装Ranger" class="headerlink" title="安装Ranger"></a>安装Ranger</h3><p><code>sudo pacman -S ranger</code></p>
+<h2 id="配置dwm到dm"><a href="#配置dwm到dm" class="headerlink" title="配置dwm到dm"></a>配置dwm到dm</h2><p>安装好之后便可以开始把桌面环境给配置dwm。我们首先需要了解一下系统是怎么知道和选择我们的桌面环境。</p>
+<p>这里就需要回顾刚刚所说的 dm *(display manger)<em>。从<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Display_manager#Session_configuration">dm的wiki</a>中可以看到一个关键目录 <code>/usr/share/xsessions/</code>。从wiki中可以知道如果我们需要新增桌面环境的话需要在这个目录下面添加一个</em>.desktop 文件。</p>
+<blockquote>
+<p>To add&#x2F;remove entries to your display manager’s session list, create&#x2F;remove the .desktop files in &#x2F;usr&#x2F;share&#x2F;xsessions&#x2F; as desired.</p>
+</blockquote>
+<p>那我们只需要在这个目录下指定新建一个DWM.desktop文件，指定编译出来的可执行文件就可以了。</p>
+<p>我新建的DWM.desktop 内容如下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">[Desktop Entry]<br>Encoding=UTF-8<br>Name=DWM<br>Comment=Dynamic Window Manager developed by suckless.org<br>Exec=/usr/local/bin/dwm<br>Icon=<br>Type=Application<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Exec 目录可以从dwm源码的Makefile找到</p>
+</blockquote>
+<h2 id="启动DWM"><a href="#启动DWM" class="headerlink" title="启动DWM"></a>启动DWM</h2><p>重启之后就可以在登录界面的右下角看到桌面环境的选择按钮了。</p>
+<blockquote>
+<p>不同dm的桌面环境选择按钮是不一样的，需要仔细寻找一下，如果<code>/usr/share/xsessions/DWM.desktop</code>没有问题的话应该是有DWM的选项的，但是位置不一样。比如Ubuntu18.04的环境按钮选择是需要先选择用户之后才能看到设置的按钮。</p>
+</blockquote>
+<p>选择DWM，登陆账户，就可以看到这个黑乎乎的桌面了。输入 <code>Alt</code> + <code>Shift</code> + <code>Enter</code> 就能看到终端界面了</p>
+<p><img src="https://raw.githubusercontent.com/FreddieGeorge/blogImg/main/img/2023-01-31_20-06.png" srcset="/img/loading.gif" lazyload alt="DWM桌面初见"></p>
+<blockquote>
+<p>说实话刚看到这个桌面的时候我是想放弃的，真的是太丑陋了xD</p>
+</blockquote>
+<p>至此DWM安装完成，接下来便开始配置我的DWM桌面了</p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>配置方面我参考了b站up主<a target="_blank" rel="noopener" href="https://space.bilibili.com/13081489">TheCW</a>的视频和他的github仓库，然后跟着b站<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1pr4y1U78u/?share_source=copy_web&vd_source=7f70bc35f201f823b29deb345ca6ea83">9thSummit的视频</a>完成了基本的配置，可以直接看这个视频学习。</p>
+<p>我自己也将<code>config.h</code>做了一些简单的修改，比如更换了<code>*fonts[]</code>和<code>dmenufont[]</code>的字体和字号，由于更换的字体是NerdFont系列的，我再将<code>tags</code>，也就是dwm界面左上角代表不同窗口的1-9更换成了五个图标，还有不同窗口layouts的表示方式也更换为了图标。</p>
+<h3 id="更改终端模拟器"><a href="#更改终端模拟器" class="headerlink" title="更改终端模拟器"></a>更改终端模拟器</h3><p>修改<code>config.h</code>，将<code>Alt</code>+<code>Shift</code>+’Enter<code>的打开的终端改为我想要的</code>alacritty&#96;终端</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// static const char *termcmd[] = &#123; &quot;st&quot;, NULL &#125;;</span><br><span class="hljs-type">static</span> <span class="hljs-type">const</span> <span class="hljs-type">char</span> *termcmd[] = &#123; <span class="hljs-string">&quot;alacritty&quot;</span>, <span class="hljs-literal">NULL</span> &#125;;<br></code></pre></td></tr></table></figure>
+
+<p>我的具体alacritty配置和安装可以看<a href="https://freddiegeorge.github.io/2023/02/14/alacritty%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B/">另一篇博客</a>。</p>
+<p>再次<code>sudo make clean install</code>然后重启就可以看到终端更换了。</p>
+<h3 id="添加patches"><a href="#添加patches" class="headerlink" title="添加patches"></a>添加patches</h3><p>patches在<a target="_blank" rel="noopener" href="https://dwm.suckless.org/patches/">suckless的官网中</a>,在左侧能看到有许多patches,如果不想要啃英文一个个找的话，这里有个很优秀的<a target="_blank" rel="noopener" href="https://github.com/Katzeee/dwm-patches-chinese">github仓库</a>将patches翻译为中文。</p>
+<p>补丁看自己喜欢的来安装，我个人安装了<code>uselessgap</code>,<code>autostart</code>,<code>barpadding</code>三个补丁，合入的方式为</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd /your/path/to/dwm_soucre<br><br>patch &lt; /path/to/patches.diff<br></code></pre></td></tr></table></figure>
+
+<p>补丁在合并的时候可能会与其他补丁产生冲突，要手动对比.rej文件解决冲突。</p>
+<h3 id="添加脚本"><a href="#添加脚本" class="headerlink" title="添加脚本"></a>添加脚本</h3><p>这个脚本是在安装了<code>autostart</code>的基础上使用的。在合入这个脚本之后，可以在<code>dwm.c</code>中看到<code>scan()</code>函数中增加了一句<code>runautostart()</code>和增加了该函数实现。在官网中也可以看到对该脚本的介绍</p>
+<blockquote>
+<p>This patch will make dwm run “<del>&#x2F;.dwm&#x2F;autostart_blocking.sh” and “</del>&#x2F;.dwm&#x2F;autostart.sh &amp;” before entering the handler loop. One or both of these files can be ommited.</p>
+</blockquote>
+<p>脚本这些我暂时还没有研究，等后面再补充自己想要的功能，目前为是照搬了<a target="_blank" rel="noopener" href="https://gitee.com/jzz777/dwm">jzz777</a>的脚本，后续我有计划将脚本改造一下，符合我自己的使用习惯。</p>
+<h3 id="动画效果"><a href="#动画效果" class="headerlink" title="动画效果"></a>动画效果</h3><p>目前只是简单安装了一个picom，暂时还没有研究</p>
+<h3 id="rofi代替dmenu"><a href="#rofi代替dmenu" class="headerlink" title="rofi代替dmenu"></a>rofi代替dmenu</h3><p>dmenu实在太简陋了,我还是喜欢颜值高一点的rofi。直接使用<code>yay -S rofi</code>安装即可，然后将dwm中的<code>config.h</code>修改一下<code>*dmenucmd[]</code>的值.然后简单配置一下rofi的主题即可</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">static</span> <span class="hljs-type">const</span> <span class="hljs-type">char</span> *dmenucmd[] = &#123; <span class="hljs-string">&quot;rofi&quot;</span>, <span class="hljs-string">&quot;show&quot;</span>, <span class="hljs-string">&quot;drun&quot;</span>, <span class="hljs-string">&quot;-theme&quot;</span>, <span class="hljs-string">&quot;/home/flork/.config/rofi/launchers/tyep-3/style-10.rasi&quot;</span>, <span class="hljs-literal">NULL</span> &#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="壁纸"><a href="#壁纸" class="headerlink" title="壁纸"></a>壁纸</h3><p>壁纸软件使用的是<code>nitrogen</code>，直接用<code>nitrogen /path/to/wallpaper</code>即可设置壁纸，然后在autostart脚本添加<code>nitrogen --restroe &amp;</code>即可</p>
+<h2 id="成果"><a href="#成果" class="headerlink" title="成果"></a>成果</h2><p>最终成果如图所示。</p>
+<p><a href="tbd">!dwm配置图</a></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>一直以来无论是上班还是自己玩，我用linux也很少使用gui，偶尔看到了dwm便大为喜爱，目前除了vim还是不熟悉之外体验和颜值都上升了很多，这篇博客的后半段就是在为配好dwm的manjaro笔记本上使用的，整体还是相当满意的。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Linux/" class="category-chain-item">Linux</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Linux/Manjaro/" class="category-chain-item">Manjaro</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Manjaro/">#Manjaro</a>
+      
+        <a href="/tags/dwm/">#dwm</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Manjaro从KDE更换为dwm</div>
+      <div>https://freddiegeorge.github.io/2023/01/31/Manjaro从KDE更换为DWM/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Flork</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年1月31日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/02/09/ubuntu18-04%E9%85%8D%E7%BD%AEvim%E4%BB%A3%E7%A0%81%E8%A1%A5%E5%85%A8%E6%8F%92%E4%BB%B6YouCompleteMe/" title="ubuntu18.04配置vim代码补全插件YouCompleteMe">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ubuntu18.04配置vim代码补全插件YouCompleteMe</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/01/31/%E6%9C%80%E8%BF%91%E7%9A%84%E6%84%9F%E6%83%B3%E4%BB%A5%E5%8F%8A2023%E5%B9%B4%E7%9B%AE%E6%A0%87/" title="最近的感想以及2023年目标">
+                        <span class="hidden-mobile">最近的感想以及2023年目标</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'FreddieGeorge/utterances_commit');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

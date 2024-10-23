@@ -1,0 +1,833 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fav.png">
+  <link rel="icon" href="/img/fav.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Flork">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="github个人界面美化记录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="美化github个人界面">
+<meta property="og:url" content="https://freddiegeorge.github.io/2023/04/06/%E7%BE%8E%E5%8C%96github%E4%B8%AA%E4%BA%BA%E7%95%8C%E9%9D%A2/index.html">
+<meta property="og:site_name" content="Flork&#39;s Blog">
+<meta property="og:description" content="github个人界面美化记录">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-04-06T07:29:06.000Z">
+<meta property="article:modified_time" content="2023-04-19T15:21:27.593Z">
+<meta property="article:author" content="Flork">
+<meta property="article:tag" content="github">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>美化github个人界面 - Flork&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"freddiegeorge.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"Qtg189pynID771nX5lcPlTHb-gzGzoHsz","app_key":"uhlcbJ5RXnRcmK0n7z7hg5In","server_url":"https://qtg189py.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Flork的小屋</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="美化github个人界面"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-04-06 15:29" pubdate>
+          2023年4月6日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          14 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">美化github个人界面</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <!-- 又可以水一篇博客，美滋滋 -->
+<!-- 拖更好久了，今天忙完项目填个坑 -->
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在Github找开源代码的时候，看到了很多大佬漂亮的github界面。于是我决定我也搞一个。于是在周五下午，喝着公司的下午茶把自己的界面捣鼓了一下。<del>顺便把这篇博客给水了。</del></p>
+<p>示例界面：<a target="_blank" rel="noopener" href="https://github.com/FreddieGeorge">FreddieGeorge</a></p>
+<h2 id="参考样例"><a href="#参考样例" class="headerlink" title="参考样例"></a>参考样例</h2><p>Github有个仓库叫<a target="_blank" rel="noopener" href="https://github.com/kautukkundan/Awesome-Profile-README-templates">Awesome-Profile-README-templates</a>，收集了很多漂亮的Github界面，根据不同的种类按照文件夹分类了。</p>
+<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><h3 id="新建profile仓库"><a href="#新建profile仓库" class="headerlink" title="新建profile仓库"></a>新建profile仓库</h3><p>首先需要一个仓库，名字与你的github用户名一致，这个仓库官方叫做profile repository。里面的 README.md 的内容就会展示在自己的profile上。</p>
+<p>在github中新建一个仓库，命名为<code>FreddieGeorge</code>，那么这个就是我的profile repository。在新建仓库的时候勾选上add README.md,即可自动生成一个README.file。后面的文本需修改都是基于这个README.md来操作。</p>
+<h3 id="添加waka-time代码统计"><a href="#添加waka-time代码统计" class="headerlink" title="添加waka-time代码统计"></a>添加waka-time代码统计</h3><p><a target="_blank" rel="noopener" href="https://wakatime.com/dashboard">waka-time</a>是一个代码时间等统计的插件。我使用的代码编辑软件以VSCode为主，并且很早就安装好了waka-time的统计插件。所以我决定在自己的README中添加代码统计。具体参考了这篇<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43233914/article/details/126087735">博客</a>。</p>
+<p>在vscode的配置部分本文就不再赘述，只需要在插件商店搜索wakatime即可，安装方法网上也很多。接下来只讲github的配置部分</p>
+<h4 id="添加Action-secret"><a href="#添加Action-secret" class="headerlink" title="添加Action secret"></a>添加Action secret</h4><p>进入profile仓库中，选择Settings -&gt; Secrets and variables -&gt; Actions -&gt; New repository secret,在Name中填写<code>WAKATIME_API_KEY</code>,value就是wakatime的API Key。</p>
+<p>然后需要获取Github仓库的API令牌，点击右上角头像-&gt; Settings -&gt; Developer settings -&gt; Personal access tokens -&gt; Tokens(classic),填写好note，设置好过期时间Expiration,然后权限选择repo和user，最后点击Generate token生成令牌，并将生成的令牌复制好</p>
+<p>然后就可以再次来到profile仓库中进入新建 repository secret的地方，再新建一个secret，Name设置为<code>GH_TOKEN</code>,value就是刚刚复制的令牌。</p>
+<p>至此Action secret配置完成。</p>
+<h4 id="添加workflows"><a href="#添加workflows" class="headerlink" title="添加workflows"></a>添加workflows</h4><p>接下来就需要添加一个让README.md能够每天自动刷新。workflow的文档在<a target="_blank" rel="noopener" href="https://docs.github.com/en/actions/using-workflows/about-workflows">github官网</a>可以找到</p>
+<p>workflows的模板大概是</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">name:</span> <span class="hljs-string">Waka</span> <span class="hljs-string">Readme</span><br><br><span class="hljs-attr">on:</span><br>  <span class="hljs-attr">workflow_dispatch:</span> <span class="hljs-comment"># for manual workflow trigger</span><br>  <span class="hljs-attr">schedule:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">cron:</span> <span class="hljs-string">&quot;0 0 * * *&quot;</span> <span class="hljs-comment"># runs at every 12AM UTC</span><br><br><span class="hljs-attr">jobs:</span><br>  <span class="hljs-attr">update-readme:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">WakaReadme</span> <span class="hljs-string">DevMetrics</span><br>    <span class="hljs-attr">runs-on:</span> <span class="hljs-string">ubuntu-latest</span><br>    <span class="hljs-attr">steps:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">uses:</span> <span class="hljs-string">anmol098/waka-readme-stats@master</span><br>        <span class="hljs-attr">with:</span><br>          <span class="hljs-attr">WAKATIME_API_KEY:</span> <span class="hljs-string">$&#123;&#123;</span> <span class="hljs-string">secrets.WAKATIME_API_KEY</span> <span class="hljs-string">&#125;&#125;</span><br>          <span class="hljs-attr">GH_TOKEN:</span> <span class="hljs-string">$&#123;&#123;</span> <span class="hljs-string">secrets.GH_TOKEN</span> <span class="hljs-string">&#125;&#125;</span><br>          <span class="hljs-comment"># 自定义部分</span><br></code></pre></td></tr></table></figure>
+
+<p>使用的Action仓库是<a target="_blank" rel="noopener" href="https://github.com/anmol098/waka-readme-stats">athul&#x2F;waka-readme</a>。看官方README可以知道不同的flag有不同的含义，我这里挑了比较主要的部分作了一个简单的翻译或者自己的介绍。详细还是以官方README为准</p>
+<table>
+<thead>
+<tr>
+<th align="center">Flag</th>
+<th align="center">默认</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>LOCALE</code></td>
+<td align="center"><code>en</code></td>
+<td align="center">使用的语言，键值根据<a target="_blank" rel="noopener" href="https://saimana.com/list-of-country-locale-code/">Short Hand</a>得到</td>
+</tr>
+<tr>
+<td align="center"><code>SECTION_NAME</code></td>
+<td align="center"><code>&quot;waka&quot;</code></td>
+<td align="center">这是用来寻找何处插入waka统计的匹配字符，后续会提到</td>
+</tr>
+<tr>
+<td align="center"><code>SHOW_UPDATED_DATE</code></td>
+<td align="center"><code>&quot;False&quot;</code></td>
+<td align="center">是否在图表末尾显示更新时间</td>
+</tr>
+<tr>
+<td align="center"><code>SHOW_LINES_OF_CODE</code></td>
+<td align="center"><code>&quot;Flase&quot;</code></td>
+<td align="center">是否显示总共写的代码行数</td>
+</tr>
+<tr>
+<td align="center"><code>SHOW_TOTAL_CODE_TIME</code></td>
+<td align="center"><code>&quot;True&quot;</code></td>
+<td align="center">是否显示总共写的代码时间</td>
+</tr>
+<tr>
+<td align="center"><code>SHOW_PROFILE_VIEWS</code></td>
+<td align="center"><code>&quot;True&quot;</code></td>
+<td align="center">是否显示profile的浏览量</td>
+</tr>
+<tr>
+<td align="center"><code>SHOW_COMMIT</code></td>
+<td align="center"><code>&quot;True&quot;</code></td>
+<td align="center">是否显示commit时间段</td>
+</tr>
+<tr>
+<td align="center"><code>SHOW_DAYS_OF_WEEK</code></td>
+<td align="center"><code>&quot;True&quot;</code></td>
+<td align="center">是否统计在周一到周日各天的commit次数</td>
+</tr>
+<tr>
+<td align="center"><code>SHOW_LANGUAGE</code></td>
+<td align="center"><code>&quot;True&quot;</code></td>
+<td align="center">是否显示使用语言的时长</td>
+</tr>
+<tr>
+<td align="center"><code>SHOW_OS</code></td>
+<td align="center"><code>&quot;True&quot;</code></td>
+<td align="center">是否显示使用操作系统时长</td>
+</tr>
+<tr>
+<td align="center"><code>SHOW_PROJECTS</code></td>
+<td align="center"><code>&quot;True&quot;</code></td>
+<td align="center">是否统计不同项目的工作时长</td>
+</tr>
+<tr>
+<td align="center"><code>SHOW_EDITORS</code></td>
+<td align="center"><code>&quot;True&quot;</code></td>
+<td align="center">是否显示编辑器</td>
+</tr>
+<tr>
+<td align="center"><code>SYMBOL_VERSION</code></td>
+<td align="center"><code>1</code></td>
+<td align="center">进度条的填充符号选择</td>
+</tr>
+</tbody></table>
+<p>我的配置如下</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">name:</span> <span class="hljs-string">Waka</span> <span class="hljs-string">Readme</span><br><br><span class="hljs-attr">on:</span><br>  <span class="hljs-attr">workflow_dispatch:</span> <span class="hljs-comment"># for manual workflow trigger</span><br>  <span class="hljs-attr">schedule:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">cron:</span> <span class="hljs-string">&quot;0 0 * * *&quot;</span> <span class="hljs-comment"># runs at every 12AM UTC</span><br><br><span class="hljs-attr">jobs:</span><br>  <span class="hljs-attr">update-readme:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">WakaReadme</span> <span class="hljs-string">DevMetrics</span><br>    <span class="hljs-attr">runs-on:</span> <span class="hljs-string">ubuntu-latest</span><br>    <span class="hljs-attr">steps:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">uses:</span> <span class="hljs-string">anmol098/waka-readme-stats@master</span><br>        <span class="hljs-attr">with:</span><br>          <span class="hljs-attr">WAKATIME_API_KEY:</span> <span class="hljs-string">$&#123;&#123;</span> <span class="hljs-string">secrets.WAKATIME_API_KEY</span> <span class="hljs-string">&#125;&#125;</span><br>          <span class="hljs-attr">GH_TOKEN:</span> <span class="hljs-string">$&#123;&#123;</span> <span class="hljs-string">secrets.GH_TOKEN</span> <span class="hljs-string">&#125;&#125;</span><br>          <span class="hljs-attr">TIME_RANGE:</span> <span class="hljs-string">last_30_days</span><br>          <span class="hljs-attr">SHOW_LINES_OF_CODE:</span> <span class="hljs-string">&quot;True&quot;</span><br>          <span class="hljs-attr">SHOW_PROFILE_VIEWS:</span> <span class="hljs-string">&quot;False&quot;</span><br>          <span class="hljs-attr">SHOW_COMMIT:</span> <span class="hljs-string">&quot;False&quot;</span><br>          <span class="hljs-attr">SHOW_EDITORS:</span> <span class="hljs-string">&quot;False&quot;</span><br>          <span class="hljs-attr">SHOW_DAYS_OF_WEEK:</span> <span class="hljs-string">&quot;False&quot;</span><br>          <span class="hljs-attr">SHOW_LANGUAGE:</span> <span class="hljs-string">&quot;True&quot;</span><br>          <span class="hljs-attr">SHOW_OS:</span> <span class="hljs-string">&quot;True&quot;</span><br>          <span class="hljs-attr">SHOW_PROJECTS:</span> <span class="hljs-string">&quot;False&quot;</span><br>          <span class="hljs-attr">SHOW_TIMEZONE:</span> <span class="hljs-string">&quot;False&quot;</span><br>          <span class="hljs-attr">SHOW_LANGUAGE_PER_REPO:</span> <span class="hljs-string">&quot;False&quot;</span><br>          <span class="hljs-attr">SHOW_SHORT_INFO:</span> <span class="hljs-string">&quot;False&quot;</span><br>          <span class="hljs-attr">SHOW_LOC_CHART:</span> <span class="hljs-string">&quot;False&quot;</span><br>          <span class="hljs-comment"># SYMBOL_VERSION: 1 get graph like  this</span><br><br>          <span class="hljs-comment">#  ██████████░░░░░░░░░░░░░░░ </span><br>          <span class="hljs-attr">SYMBOL_VERSION:</span> <span class="hljs-number">2</span><br><br></code></pre></td></tr></table></figure>
+
+<h4 id="README中添加"><a href="#README中添加" class="headerlink" title="README中添加"></a>README中添加</h4><p>在README中需要插入waka统计的地方加上两行代码即可，其中<code>waka</code>就是<code>SECTION_NAME</code>指定的字符</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-comment">&lt;!--START_SECTION:waka--&gt;</span><br><span class="hljs-comment">&lt;!--END_SECTION:waka--&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="图标"><a href="#图标" class="headerlink" title="图标"></a>图标</h3><p>经常能看到一些profile有各种各样的图标，比如<a target="_blank" rel="noopener" href="https://github.com/nonebot/nonebot2">NoneBot</a>的README开头的一大堆图标。这些都是在<a target="_blank" rel="noopener" href="https://shields.io/">shields.io</a>中能找到，包括语言，下载数等，都可以在这个网站生成。在很多仓库中都可以看到这种图标。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%9D%82%E9%A1%B9/" class="category-chain-item">杂项</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/github/">#github</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>美化github个人界面</div>
+      <div>https://freddiegeorge.github.io/2023/04/06/美化github个人界面/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Flork</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年4月6日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/06/26/%E5%85%A8%E5%BF%97%E5%B9%B3%E5%8F%B0rtl8188fu-wifi%E6%A8%A1%E5%9D%97%E5%BC%80%E5%8F%91/" title="全志平台rtl8188fu wifi模块开发">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">全志平台rtl8188fu wifi模块开发</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/03/30/%E5%85%A8%E5%BF%97T5%E7%9A%84LVDS%E8%B0%83%E8%AF%95%E8%AE%B0%E5%BD%95/" title="全志T5的LVDS调试记录">
+                        <span class="hidden-mobile">全志T5的LVDS调试记录</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'FreddieGeorge/utterances_commit');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

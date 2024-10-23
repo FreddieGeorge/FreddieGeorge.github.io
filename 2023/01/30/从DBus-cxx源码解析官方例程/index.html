@@ -1,0 +1,833 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fav.png">
+  <link rel="icon" href="/img/fav.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Flork">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="从官方例程中分析DBUS-CXX的实现,此为第一部分代码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从DBus-cxx源码解析官方例程(1)">
+<meta property="og:url" content="https://freddiegeorge.github.io/2023/01/30/%E4%BB%8EDBus-cxx%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E5%AE%98%E6%96%B9%E4%BE%8B%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Flork&#39;s Blog">
+<meta property="og:description" content="从官方例程中分析DBUS-CXX的实现,此为第一部分代码">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/FreddieGeorge/blogImg/main/img/DBUS_SESSION_BUS_ADDRESS%E5%8F%98%E9%87%8F.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/FreddieGeorge/blogImg/main/img/%E5%90%AF%E5%8A%A8%E8%84%9A%E6%9C%AC%E4%B8%AD%E5%AF%B9dbus-daemon%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96.png">
+<meta property="article:published_time" content="2023-01-30T09:11:08.000Z">
+<meta property="article:modified_time" content="2023-01-31T12:52:52.580Z">
+<meta property="article:author" content="Flork">
+<meta property="article:tag" content="DBUS">
+<meta property="article:tag" content="DBUS-CXX">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/FreddieGeorge/blogImg/main/img/DBUS_SESSION_BUS_ADDRESS%E5%8F%98%E9%87%8F.png">
+  
+  
+  
+  <title>从DBus-cxx源码解析官方例程(1) - Flork&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"freddiegeorge.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"Qtg189pynID771nX5lcPlTHb-gzGzoHsz","app_key":"uhlcbJ5RXnRcmK0n7z7hg5In","server_url":"https://qtg189py.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Flork的小屋</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="从DBus-cxx源码解析官方例程(1)"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-30 17:11" pubdate>
+          2023年1月30日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          10k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          43 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">从DBus-cxx源码解析官方例程(1)</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="从DBus-cxx源码解析官方例程"><a href="#从DBus-cxx源码解析官方例程" class="headerlink" title="从DBus-cxx源码解析官方例程"></a>从DBus-cxx源码解析官方例程</h1><blockquote>
+<p>Linus Benedict Torvalds 曾说 :“Read The F**king Source Code 🙂!”</p>
+</blockquote>
+<p>该文章仅是个人学习的记录。例程代码来自<a target="_blank" rel="noopener" href="https://dbus-cxx.github.io/quick_start_example_0.html">dbus-cxx: Quick start example 0: A simple server and client</a></p>
+<p>首先请先了解 DBus 的基本概念和大致框架再来阅读该文章，并自行从github中拉下一份 DBus-cxx的源码，配合 DBus-cxx 文档和源码注释阅读。文章并不会把所有涉及到的源码都贴出来，有很多省略部分，请自行查找对应源码阅读。源码 Releases 版本为 2.3.0。</p>
+<h2 id="server-cpp"><a href="#server-cpp" class="headerlink" title="server.cpp"></a>server.cpp</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;dbus-cxx.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">double</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-type">double</span> param1, <span class="hljs-type">double</span> param2)</span> </span>&#123; <span class="hljs-keyword">return</span> param1 + param2; &#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    std::shared_ptr&lt;DBus::Dispatcher&gt; dispatcher = DBus::StandaloneDispatcher::<span class="hljs-built_in">create</span>();<br><br>    std::shared_ptr&lt;DBus::Connection&gt; conn = dispatcher-&gt;<span class="hljs-built_in">create_connection</span>(DBus::BusType::SESSION);<br><br>    <span class="hljs-keyword">if</span> (conn-&gt;<span class="hljs-built_in">request_name</span>(<span class="hljs-string">&quot;dbuscxx.quickstart_0.server&quot;</span>, DBUSCXX_NAME_FLAG_REPLACE_EXISTING) != DBus::RequestNameResponse::PrimaryOwner)<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>		<br>    <span class="hljs-comment">// create an object on us</span><br>    std::shared_ptr&lt;DBus::Object&gt; object = conn-&gt;<span class="hljs-built_in">create_object</span>(<span class="hljs-string">&quot;/dbuscxx/quickstart_0&quot;</span>, DBus::ThreadForCalling::DispatcherThread);<br><br>    <span class="hljs-comment">// add a method that can be called over the dbus</span><br>    object-&gt;<span class="hljs-built_in">create_method</span>&lt;<span class="hljs-built_in">double</span>(<span class="hljs-type">double</span>, <span class="hljs-type">double</span>)&gt;(<span class="hljs-string">&quot;dbuscxx.Quickstart&quot;</span>, <span class="hljs-string">&quot;add&quot;</span>, sigc::<span class="hljs-built_in">ptr_fun</span>(add));<br><br>    <span class="hljs-built_in">sleep</span>(<span class="hljs-number">10</span>);<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="create"><a href="#create" class="headerlink" title="create()"></a>create()</h3><p>首先是第一句：</p>
+<p><code>std::shared_ptrDBus::Dispatcher dispatcher = DBus::StandaloneDispatcher::create();</code></p>
+<p>在<a target="_blank" rel="noopener" href="https://dbus-cxx.github.io/classDBus_1_1StandaloneDispatcher.html">官方文档</a>中可以找到 StandaloneDispatcher 这个类的介绍</p>
+<blockquote>
+<p>creates a new thread that handles all of the reading and writing to the bus.</p>
+</blockquote>
+<p><code>StandaloneDispatcher</code> 这个类并不复杂。定位到 create 源码部分，可以看到 <code>create</code> 函数的实现其实是返回了一个<code>StandaloneDispatcher</code> 的类智能指针，且 is_running 的默认参数为 true</p>
+<blockquote>
+<p>后面很多类的创建都是用类似的 create 方法实现，就不再赘述</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function">std::shared_ptr&lt;StandaloneDispatcher&gt; <span class="hljs-title">StandaloneDispatcher::create</span><span class="hljs-params">( <span class="hljs-type">bool</span> is_running )</span> </span>&#123;<br>    <span class="hljs-keyword">return</span> std::<span class="hljs-built_in">shared_ptr</span>&lt;StandaloneDispatcher&gt;( <span class="hljs-keyword">new</span> <span class="hljs-built_in">StandaloneDispatcher</span>( is_running ) );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在 <code>StandaloneDispatcher</code> 的构造函数中完成了初始化的内容</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cpp">StandaloneDispatcher::<span class="hljs-built_in">StandaloneDispatcher</span>( <span class="hljs-type">bool</span> is_running ) &#123;<br>    m_priv = std::<span class="hljs-built_in">make_unique</span>&lt;priv_data&gt;();<br><br>    <span class="hljs-keyword">if</span>( <span class="hljs-built_in">socketpair</span>( AF_UNIX, SOCK_STREAM | SOCK_NONBLOCK, <span class="hljs-number">0</span>, m_priv-&gt;process_fd ) &lt; <span class="hljs-number">0</span> ) &#123;<br>        <span class="hljs-built_in">SIMPLELOGGER_ERROR</span>( LOGGER_NAME, <span class="hljs-string">&quot;error creating socket pair&quot;</span> );<br>        <span class="hljs-keyword">throw</span> <span class="hljs-built_in">ErrorDispatcherInitFailed</span>();<br>    &#125;<br><br>    <span class="hljs-keyword">if</span>( is_running ) &#123; <span class="hljs-keyword">this</span>-&gt;<span class="hljs-built_in">start</span>(); &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>首先利用 <code>socketpair</code> 建立一堆匿名的嵌套字连接，使用的是管道流SOCK_STREAM连接，即建立的是双向通道，每一端都可以进行读写，并将套接字描述符分别放在<code>process_fd[0]</code> 和 <code>process_fd[1]</code> 中，然后调用 <code>start()</code> 开始线程.</p>
+<blockquote>
+<p>结合源码不难分析出，DBus-cxx 中 <code>process_fd[0]</code> 是写端，<code>process_fd[1]</code> 是读端</p>
+</blockquote>
+<p>在 <code>start()</code> 中利用 <code>std::thread</code> 开始线程,执行关键的线程函数 <code>dispatch_thread_main</code> </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">StandaloneDispatcher::dispatch_thread_main</span><span class="hljs-params">()</span> </span>&#123;<br>    std::vector&lt;<span class="hljs-type">int</span>&gt; fds;<br><br>    <span class="hljs-keyword">for</span>( std::shared_ptr&lt;Connection&gt; conn : m_priv-&gt;m_connections ) &#123;<br>        conn-&gt;<span class="hljs-built_in">set_dispatching_thread</span>( std::this_thread::<span class="hljs-built_in">get_id</span>() );<br>    &#125;<br><br>    <span class="hljs-keyword">while</span>( m_priv-&gt;m_running ) &#123;<br>        fds.<span class="hljs-built_in">clear</span>();<br>        fds.<span class="hljs-built_in">push_back</span>( m_priv-&gt;process_fd[ <span class="hljs-number">1</span> ] );<br><br>        <span class="hljs-keyword">for</span>( std::shared_ptr&lt;Connection&gt; conn : m_priv-&gt;m_connections ) &#123;<br>            <span class="hljs-keyword">if</span>( !conn-&gt;<span class="hljs-built_in">is_registered</span>() ) &#123;<br>                conn-&gt;<span class="hljs-built_in">bus_register</span>();<br>            &#125;<br><br>            fds.<span class="hljs-built_in">push_back</span>( conn-&gt;<span class="hljs-built_in">unix_fd</span>() );<br>        &#125;<br><br>			  <span class="hljs-comment">// Wait for activity on any of the given FDs.</span><br>			  <span class="hljs-comment">// If the system call is interrupted, it will be restarted automatically.</span><br>        std::tuple&lt;<span class="hljs-type">bool</span>, <span class="hljs-type">int</span>, std::vector&lt;<span class="hljs-type">int</span>&gt;, std::chrono::milliseconds&gt; fdResponse =<br>            DBus::priv::<span class="hljs-built_in">wait_for_fd_activity</span>( fds, <span class="hljs-number">-1</span> );<br>        std::vector&lt;<span class="hljs-type">int</span>&gt; fdsToRead = std::<span class="hljs-built_in">get</span>&lt;<span class="hljs-number">2</span>&gt;( fdResponse );<br><br>        <span class="hljs-keyword">if</span>( fdsToRead[ <span class="hljs-number">0</span> ] == m_priv-&gt;process_fd[ <span class="hljs-number">1</span> ] ) &#123;<br>            <span class="hljs-type">char</span> discard;<br>            <span class="hljs-keyword">if</span>( <span class="hljs-built_in">read</span>( m_priv-&gt;process_fd[ <span class="hljs-number">1</span> ], &amp;discard, <span class="hljs-built_in">sizeof</span>( <span class="hljs-type">char</span> ) ) &lt; <span class="hljs-number">0</span> )&#123;<br>                <span class="hljs-built_in">SIMPLELOGGER_DEBUG</span>( LOGGER_NAME, <span class="hljs-string">&quot;Failure reading from dispatch thread process_fd: &quot;</span><br>                                    &lt;&lt; <span class="hljs-built_in">strerror</span>( errno ) );<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-built_in">dispatch_connections</span>();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>关键点有以下几个</p>
+<p>首先在while中能看到一个对 m_connection 的遍历，在执行create的时候 m_connection 中的数量为0，所以并不会进入 bus_register 阶段，这段代码中的 bus_register 就留到下一个语句中来解释。现在只需要知道这个for循环是用来遍历connection 把还没有没有注册的连接向bus中注册，获得 unique name。</p>
+<p>首先看最后的 <code>dispatch_connections()</code>函数，这个函数调用 Connections::dispatch 方法写入和尝试读取bus的信息，并作处理。这样就实现了在线程循环中写入需要些的数据和从bus中读取数据。主要部分如下。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function">DispatchStatus <span class="hljs-title">Connection::dispatch</span><span class="hljs-params">( )</span> </span>&#123;<br>		<span class="hljs-comment">/* ... */</span><br>    <span class="hljs-comment">// Write out any messages we have waiting to be written</span><br>    <span class="hljs-built_in">flush</span>();<br><br>    <span class="hljs-comment">// Try to read a message</span><br>         <span class="hljs-comment">/* ... */</span><br>        std::shared_ptr&lt;Message&gt; incoming = m_priv-&gt;m_transport-&gt;<span class="hljs-built_in">readMessage</span>();<br>        <span class="hljs-comment">/* ... */</span><br><br>    <span class="hljs-comment">// Process any messages that we need to</span><br>    <span class="hljs-built_in">process_single_message</span>();<br><br>    <span class="hljs-keyword">if</span>( m_priv-&gt;m_outgoingMessages.<span class="hljs-built_in">empty</span>() &amp;&amp;<br>        m_priv-&gt;m_incomingMessages.<span class="hljs-built_in">empty</span>() ) &#123;<br>        m_priv-&gt;m_dispatchStatus = DispatchStatus::COMPLETE;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        m_priv-&gt;m_dispatchStatus = DispatchStatus::DATA_REMAINS;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> m_priv-&gt;m_dispatchStatus;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>最后返回disptch的状态，如果还有消息数据残留，则在<code>dispatch_connections()</code>使用wakeup_thread 唤醒线程。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">StandaloneDispatcher::wakeup_thread</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">char</span> to_write = <span class="hljs-string">&#x27;0&#x27;</span>;<br><br>    <span class="hljs-keyword">if</span>( <span class="hljs-built_in">write</span>( m_priv-&gt;process_fd[ <span class="hljs-number">0</span> ], &amp;to_write, <span class="hljs-built_in">sizeof</span>( <span class="hljs-type">char</span> ) ) &lt; <span class="hljs-number">0</span> ) &#123;<br>        <span class="hljs-built_in">SIMPLELOGGER_ERROR</span>( LOGGER_NAME, <span class="hljs-string">&quot;Can&#x27;t write to socketpair?!&quot;</span> );<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>wakeup_thread()  在很多需要重复执行 <code>dispatch_thread_main</code>  的地方都用到了，那么是怎么做到的呢。我们需要回到线程函数的中间 <code>wait_for_fd_activity(fds, -1)</code> 。这个函数的作用就是等待给定fds的任何活动，比如读、写。那么执行线程函数的主循环时候，会停在这里等待其他地方对fds进行操作，并不会立刻处理消息的读写，然后再开始进入消息处理的流程。而 wakeup_thread 正是通过向 process_fd 写入一个 ‘0’ 从而达到了唤醒线程的功能。</p>
+<p>至此，第一句语句的大概流程分析完毕，create() 函数的功能就是新建。</p>
+<h3 id="create-connection"><a href="#create-connection" class="headerlink" title="create_connection()"></a>create_connection()</h3><p>然后是 <code>dispatcher-&gt;create_connection(DBus::BusType::SESSION)</code> ，该函数用来创建Connection类实例。很简单，一共只有三句，但这三句都很关键，涉及到很多通信流程的准备和初始化，让我们来一句一句分析。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function">std::shared_ptr&lt;DBus::Connection&gt; <span class="hljs-title">StandaloneDispatcher::create_connection</span><span class="hljs-params">( BusType type )</span> </span>&#123;<br>    std::shared_ptr&lt;Connection&gt; conn = Connection::<span class="hljs-built_in">create</span>( type );<br>    conn-&gt;<span class="hljs-built_in">bus_register</span>();<br><br>    <span class="hljs-keyword">if</span>( <span class="hljs-keyword">this</span>-&gt;<span class="hljs-built_in">add_connection</span>( conn ) ) &#123; <span class="hljs-keyword">return</span> conn; &#125;<br><br>    <span class="hljs-keyword">return</span> std::<span class="hljs-built_in">shared_ptr</span>&lt;Connection&gt;();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<p>首先第一句 Connection::create() ，利用 create 新建了一个 Connection 类，其构造函数简化如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs cpp">Connection::<span class="hljs-built_in">Connection</span>( BusType type ) &#123;<br>    m_priv = std::<span class="hljs-built_in">make_unique</span>&lt;priv_data&gt;();<br><br>    <span class="hljs-keyword">if</span>( type == BusType::SESSION ) &#123;<br>        <span class="hljs-type">char</span>* env_address = <span class="hljs-built_in">getenv</span>( <span class="hljs-string">&quot;DBUS_SESSION_BUS_ADDRESS&quot;</span> );<br><br>        <span class="hljs-keyword">if</span>( env_address == <span class="hljs-literal">nullptr</span> ) &#123;<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br><br>        std::string sessionBusAddr = std::<span class="hljs-built_in">string</span>( env_address );<br>        <span class="hljs-built_in">SIMPLELOGGER_DEBUG</span>( LOGGER_NAME, <span class="hljs-string">&quot;Going to open session bus: &quot;</span> + sessionBusAddr );<br>        m_priv-&gt;m_transport = priv::Transport::<span class="hljs-built_in">open_transport</span>( sessionBusAddr );<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(<span class="hljs-comment">/* 其他 BusType 处理, 此处省略 */</span>)&#123;<br>				<span class="hljs-comment">/* ... */</span><br>		&#125;<br><br>    <span class="hljs-keyword">if</span>( !m_priv-&gt;m_transport || !m_priv-&gt;m_transport-&gt;<span class="hljs-built_in">is_valid</span>() ) &#123;<br>        <span class="hljs-built_in">SIMPLELOGGER_ERROR</span>( LOGGER_NAME, <span class="hljs-string">&quot;Unable to open transport&quot;</span> );<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>其中需要注意的是 <code>getenv( &quot;DBUS_SESSION_BUS_ADDRESS&quot; )</code>，我们可以在终端输入<code>echo $DBUS_SESSION_BUS_ADDRESS</code> , 获得如下输出，path&#x3D;后面的就是 dbus-daemon 的地址。系统启动脚本中会调用 dbus-launch 来启动一个 dbus-daemon ,同时会把这个 dbus-daemon 赋予这个环境变量中。这个路径是一个socket类型文件。</p>
+<p><img src="https://raw.githubusercontent.com/FreddieGeorge/blogImg/main/img/DBUS_SESSION_BUS_ADDRESS%E5%8F%98%E9%87%8F.png" srcset="/img/loading.gif" lazyload alt="DBUS_SESSION_BUS_ADDRESS变量"></p>
+<blockquote>
+<p>在我的机器中，系统启动时对该环境变量的设定在 <code>/etc/X11/Xsession.d/20dbus_xdg-runtime</code></p>
+<p><img src="https://raw.githubusercontent.com/FreddieGeorge/blogImg/main/img/%E5%90%AF%E5%8A%A8%E8%84%9A%E6%9C%AC%E4%B8%AD%E5%AF%B9dbus-daemon%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96.png" srcset="/img/loading.gif" lazyload alt="启动脚本中对dbus-daemon的初始化"></p>
+</blockquote>
+<p>然后再通过  Transport::open_transport 传入这个字符串并返回一个 Transport 类指针，并保存在 <strong>m_transport</strong> 中， 而在这个 Transport 的类中就包含了关键的 writeMessage 和 readMessage 方法，后续的读写操作都是调用这个类指针来完成。</p>
+<p>在 open_transport  函数的开始调用解析函数 parseTransports 对这个字符串进行拆解。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function">std::shared_ptr&lt;Transport&gt; <span class="hljs-title">Transport::open_transport</span><span class="hljs-params">( std::string address )</span> </span>&#123;<br>    std::vector&lt;ParsedTransport&gt; transports = <span class="hljs-built_in">parseTransports</span>( address );<br>	  <span class="hljs-comment">/* ... */</span><br>    <span class="hljs-keyword">if</span>( !path.<span class="hljs-built_in">empty</span>() ) &#123;<br>        fd = <span class="hljs-built_in">open_unix_socket</span>( path, <span class="hljs-literal">false</span> );<br>        <span class="hljs-keyword">if</span>( fd &gt;= <span class="hljs-number">0</span> ) &#123;<br>            retTransport = SendmsgTransport::<span class="hljs-built_in">create</span>( fd, <span class="hljs-literal">true</span> );<br>            <span class="hljs-comment">/* ... */</span><br>				&#125;<br>		&#125;<br>    <span class="hljs-keyword">if</span>( retTransport ) &#123;<br>        <span class="hljs-function">priv::SASL <span class="hljs-title">saslAuth</span><span class="hljs-params">( retTransport-&gt;fd(), negotiateFD )</span></span>;<br>        std::tuple&lt;<span class="hljs-type">bool</span>, <span class="hljs-type">bool</span>, std::vector&lt;<span class="hljs-type">uint8_t</span>&gt;&gt; resp =<br>                saslAuth.<span class="hljs-built_in">authenticate</span>();<br><br>        retTransport-&gt;m_serverAddress = std::<span class="hljs-built_in">get</span>&lt;<span class="hljs-number">2</span>&gt;( resp );<br><br>        <span class="hljs-keyword">if</span>( std::<span class="hljs-built_in">get</span>&lt;<span class="hljs-number">0</span>&gt;( resp ) == <span class="hljs-literal">false</span> ) &#123;<br>            <span class="hljs-built_in">SIMPLELOGGER_DEBUG</span>( LOGGER_NAME, <span class="hljs-string">&quot;Did not authenticate with server&quot;</span> );<br>            retTransport.<span class="hljs-built_in">reset</span>();<br>        &#125;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>该函数并不难理解，具体代码自行查看源码，结果就是将上图中的 <code>unxi:path=/run/user/1000/bus</code> 解析为如下( <em>论正则的好处，C++居然还没有引入正则</em>  )，这是DBUS_SECCSION_BUS_ADDRESS 只有一个值的情况，多值情况可以自己结合源码分析一下。</p>
+<blockquote>
+<p>tmpTransportName  &#x3D; “unix”<br>tmpKey &#x3D; “path”<br>tmpValue &#x3D; “&#x2F;run&#x2F;user&#x2F;1000&#x2F;bus”</p>
+</blockquote>
+<p>然后将 tmpKey 和 tmpValue 保存到map对象tmpConfig 中，然后push_back 到retval中并返回。</p>
+<p>知道 parseTransports 函数返回了什么，后面的就好理解了。</p>
+<p>回到 open_transport 函数，后面调用了dbus-cxx 自己实现的 open_unix_socket 打开了这个dbus_daemon 路径，并返回fd，接下来的关键就在于重点就在于 <code>retTransport = SendmsgTransport::create( fd, true );</code> SendmsgTransport 是 Transport 的子类,实际的writeMessage 和 readMessage 方法就是在这里实现的。</p>
+<blockquote>
+<p>在官方文档中这个SendmsgTransport 的介绍是<br>The Sendmsg handles reading and writing over a Unix FD that supports sendmsg(). This allows you to send file descriptors over a Unix FD</p>
+</blockquote>
+<p>回到 open_transport 函数，<code>priv::SASL saslAuth( retTransport-&gt;fd(), negotiateFD )</code> 这句是生成一个 SASL 安全认证，然后与服务器进行身份认证。</p>
+<blockquote>
+<p>SASL:Simple authentication and Security layer</p>
+</blockquote>
+<hr>
+<p>然后是 <code>conn-&gt;bus_register();</code> 对应源码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">Connection::bus_register</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">if</span>( !m_priv-&gt;m_transport || !m_priv-&gt;m_transport-&gt;<span class="hljs-built_in">is_valid</span>() ) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">if</span>( <span class="hljs-built_in">is_registered</span>() ) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br><br>    m_priv-&gt;m_daemonProxy = DBus::DBusDaemonProxy::<span class="hljs-built_in">create</span>( <span class="hljs-built_in">shared_from_this</span>() );<br><br>    m_priv-&gt;m_uniqueName = m_priv-&gt;m_daemonProxy-&gt;<span class="hljs-built_in">Hello</span>();<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这个函数主要新建 DBusDaemonProxy 类指针，使用 <a target="_blank" rel="noopener" href="https://yizhi.ren/2016/11/14/sharedptr/">shared_from_this</a> 传递参数，然后在DBusDaemonProxy 构造函数中新建了很多方法，这里也可以看出 dbus-cxx 与 dbus 的联系</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp">DBusDaemonProxy::<span class="hljs-built_in">DBusDaemonProxy</span>( <span class="hljs-comment">/* ... */</span> ) &#123;<br>    m_method_Hello = <span class="hljs-keyword">this</span>-&gt;<span class="hljs-built_in">create_method</span>&lt;std::<span class="hljs-built_in">string</span>()&gt;( <span class="hljs-string">&quot;org.freedesktop.DBus&quot;</span>, <span class="hljs-string">&quot;Hello&quot;</span> );<br>		<span class="hljs-comment">/* ... */</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>而 create_method 定义在 <code>objectproxy.h</code> 中，具体作用可以看源码注释</p>
+<blockquote>
+<p>Creates a proxy method with a signature based on the template parameters and adds it to the named interface</p>
+</blockquote>
+<p>然后调用Hello方法返回 unique name 保存在m_priv中，也就是终端输入busctl 显示的那些以 <code>:</code> 开始的名字，这是 DBus 的功能，详情请跳转<a target="_blank" rel="noopener" href="https://dbus.freedesktop.org/doc/dbus-specification.html#message-bus-names">链接</a>。</p>
+<hr>
+<p>然后回到 create_connection 中，看到 add_connection 部分，这个函数主要就是把连接加入到 dispatcher 中，可以看到 这个conection获取了 分发线程的线程id，然后还利用push back把connection压入 m_connection 中，最后唤醒线程，在 dispatch_thread_main 中执行连接的分发</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">StandaloneDispatcher::add_connection</span><span class="hljs-params">( std::shared_ptr&lt;Connection&gt; connection )</span> </span>&#123;<br>    <span class="hljs-keyword">if</span>( !connection || !connection-&gt;<span class="hljs-built_in">is_valid</span>() ) &#123; <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; &#125;<br><br>    connection-&gt;<span class="hljs-built_in">set_dispatching_thread</span>( m_priv-&gt;m_dispatch_thread.<span class="hljs-built_in">get_id</span>() );<br>    connection-&gt;<span class="hljs-built_in">signal_needs_dispatch</span>().<span class="hljs-built_in">connect</span>( sigc::<span class="hljs-built_in">mem_fun</span>( *<span class="hljs-keyword">this</span>, &amp;StandaloneDispatcher::wakeup_thread ) );<br>    m_priv-&gt;m_connections.<span class="hljs-built_in">push_back</span>( connection );<br>    <span class="hljs-built_in">wakeup_thread</span>();<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>至此，create_connection 完毕</p>
+<h3 id="request-name"><a href="#request-name" class="headerlink" title="request_name()"></a>request_name()</h3><p><code>conn-&gt;request_name(&quot;dbuscxx.quickstart_0.server&quot;, DBUSCXX_NAME_FLAG_REPLACE_EXISTING)</code></p>
+<p>request_name 比较简单，也就是获取一个bus名称，直接找到源码实现</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function">RequestNameResponse <span class="hljs-title">Connection::request_name</span><span class="hljs-params">( <span class="hljs-type">const</span> std::string&amp; name, <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> flags )</span> </span>&#123;<br>    <span class="hljs-keyword">if</span>( !<span class="hljs-built_in">is_valid</span>() ) &#123;<br>        <span class="hljs-keyword">throw</span> <span class="hljs-built_in">ErrorDisconnected</span>();<br>    &#125;<br><br>    <span class="hljs-type">uint32_t</span> retval = m_priv-&gt;m_daemonProxy-&gt;<span class="hljs-built_in">RequestName</span>( name, flags );<br><br>    <span class="hljs-keyword">switch</span>( retval ) &#123;<br>		<br>    <span class="hljs-keyword">case</span> DBUSCXX_REQUEST_NAME_REPLY_PRIMARY_OWNER:<br>        <span class="hljs-keyword">return</span> RequestNameResponse::PrimaryOwner;<br>		<span class="hljs-comment">/* ... */</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>重点在于 <code>m_priv-&gt;m_daemonProxy-&gt;RequestName( name, flags )</code>  ，这里调用的是DBus的方法 RequestName ，从DBus 的官方文档中可以看到该方法是用来获取指定的bus名称，根据不同的flags有不同的效果</p>
+<p>更多请参考 <a target="_blank" rel="noopener" href="https://dbus.freedesktop.org/doc/dbus-specification.html#message-bus-messages">D-Bus 官方文档</a></p>
+<p>第一部分结束</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Linux/" class="category-chain-item">Linux</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/DBUS/">#DBUS</a>
+      
+        <a href="/tags/DBUS-CXX/">#DBUS-CXX</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>从DBus-cxx源码解析官方例程(1)</div>
+      <div>https://freddiegeorge.github.io/2023/01/30/从DBus-cxx源码解析官方例程/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Flork</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年1月30日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/01/31/%E6%9C%80%E8%BF%91%E7%9A%84%E6%84%9F%E6%83%B3%E4%BB%A5%E5%8F%8A2023%E5%B9%B4%E7%9B%AE%E6%A0%87/" title="最近的感想以及2023年目标">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">最近的感想以及2023年目标</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/01/23/DBUS%E9%85%8D%E7%BD%AE/" title="DBUS配置">
+                        <span class="hidden-mobile">DBUS配置</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'FreddieGeorge/utterances_commit');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
