@@ -1,4 +1,6 @@
---- title: alacritty配置过程 date: 2023-02-14 15:04:06
+---
+title: alacritty配置过程 
+date: 2023-02-14 15:04:06
 tags:
 - alacritty
 - Linux
@@ -6,6 +8,7 @@ categories:
 - Linux
 - Manjaro
 excerpt: Manjaro配置alacritty的过程
+
 ---
 
 ## 2024-3-6 update
