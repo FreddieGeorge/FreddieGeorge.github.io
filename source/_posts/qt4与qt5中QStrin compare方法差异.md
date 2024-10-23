@@ -1,12 +1,11 @@
 ---
-title: '“qt4与qt5中QString::compare方法差异”'
+title: qt4与qt5中QString::compare方法差异
 date: 2024-10-23 18:04:07
 tags:
 - Qt
 - Linux
 categories: 
 - Linux
-hide: true
 ---
 
 ## 背景
