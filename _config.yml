@@ -5,7 +5,7 @@
 # Site
 title: Flork's Blog
 subtitle: ''
-description: 'Flork的个人博客'
+description: 'Flork的博客'
 keywords:
 author: Flork
 # language: en
@@ -15,7 +15,8 @@ timezone: ''
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
 # url: http://example.com
-url: https://freddiegeorge.github.io/
+# url: https://freddiegeorge.github.io/
+url: https://blog.flork.top/
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -108,5 +109,5 @@ theme: fluid
 deploy:
   type: git
     #repo: https://github.com/FreddieGeorge/freddiegeorge.github.io.git
-  repo: git@github.com:FreddieGeorge/freddiegeorge.github.io.git
+  repo: root@110.42.111.155:/root/blog/hexo.git
   branch: master
